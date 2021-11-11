@@ -1,7 +1,8 @@
-package br.edu.uea.spd.sopet
+package br.edu.uea.spd.sopet.ui.activity
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import br.edu.uea.spd.sopet.R
 
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap

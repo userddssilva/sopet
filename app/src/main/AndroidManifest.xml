@@ -1,37 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="br.edu.uea.spd.sopet">
+
     <!--
          The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
          Google Maps Android API v2, but you must specify either coarse or fine
          location permissions for the "MyLocation" functionality.
     -->
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission
+        android:name="android.permission.ACCESS_FINE_LOCATION"
+        tools:ignore="CoarseFineLocation" />
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.Sopet">
-        <activity
-            android:name=".ui.PetList"
-            android:exported="true" />
-        <activity
-            android:name=".ui.Login"
-            android:exported="true" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+        android:theme="@style/Theme.Sopet"
+        tools:ignore="AllowBackup">
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-        <activity
-            android:name=".ui.Initial"
-            android:exported="true">
-
-        </activity>
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").
@@ -45,9 +32,46 @@
             android:value="@string/google_maps_key" />
 
         <activity
-            android:name=".MapsActivity"
+            android:name=".ui.MainActivity"
             android:exported="true"
-            android:label="@string/title_activity_maps" />
+            android:screenOrientation="portrait"
+            android:theme="@style/ThemeNoTitle"
+            tools:ignore="LockedOrientationActivity"></activity>
+        <activity
+            android:name=".ui.activity.CardDetails"
+            android:exported="true"
+            android:parentActivityName=".ui.activity.PetList"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity" />
+        <activity
+            android:name=".ui.activity.Initial"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            android:theme="@style/ThemeNoTitle"
+            tools:ignore="LockedOrientationActivity" />
+        <activity
+            android:name=".ui.activity.PetList"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity" />
+        <activity
+            android:name=".ui.activity.Login"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            android:theme="@style/ThemeNoTitle"
+            tools:ignore="LockedOrientationActivity" />
+        <activity
+            android:name=".ui.activity.MapsActivity"
+            android:exported="true"
+            android:label="@string/title_activity_maps"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>
