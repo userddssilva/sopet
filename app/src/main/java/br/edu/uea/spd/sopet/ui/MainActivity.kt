@@ -13,7 +13,7 @@ class MainActivity : AppCompatActivity() {
 
     private val petListFragment = PetListFragment()
     private val mapsFragment = PlacesFragment1()
-    private val favoritesFrament = FavoritesFragment()
+    private val favoritesFragment = FavoritesFragment()
 
     private lateinit var bottomNavigation: BottomNavigationView
 
@@ -29,7 +29,7 @@ class MainActivity : AppCompatActivity() {
             when (it.itemId) {
                 R.id.page_1 -> replaceFragment(petListFragment)
                 R.id.page_2 -> replaceFragment(mapsFragment)
-                R.id.page_3-> replaceFragment(favoritesFrament)
+                R.id.page_3-> replaceFragment(favoritesFragment)
             }
             true
         }
@@ -37,10 +37,8 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun replaceFragment(fragment: Fragment) {
-        if(fragment != null) {
-            val transaction = supportFragmentManager.beginTransaction()
-            transaction.replace(R.id.frame_container, fragment)
-            transaction.commit()
-        }
+        val transaction = supportFragmentManager.beginTransaction()
+        transaction.replace(R.id.frame_container, fragment)
+        transaction.commit()
     }
 }

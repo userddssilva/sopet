@@ -12,13 +12,14 @@
         android:name="android.permission.ACCESS_FINE_LOCATION"
         tools:ignore="CoarseFineLocation" />
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/Theme.Sopet"
         tools:ignore="AllowBackup">
-
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").
@@ -30,24 +31,17 @@
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
-
         <activity
             android:name=".ui.MainActivity"
             android:exported="true"
             android:screenOrientation="portrait"
             android:theme="@style/ThemeNoTitle"
-            tools:ignore="LockedOrientationActivity"></activity>
+            tools:ignore="LockedOrientationActivity" />
         <activity
             android:name=".ui.activity.CardDetails"
             android:exported="true"
             android:parentActivityName=".ui.activity.PetList"
             android:screenOrientation="portrait"
-            tools:ignore="LockedOrientationActivity" />
-        <activity
-            android:name=".ui.activity.Initial"
-            android:exported="true"
-            android:screenOrientation="portrait"
-            android:theme="@style/ThemeNoTitle"
             tools:ignore="LockedOrientationActivity" />
         <activity
             android:name=".ui.activity.PetList"
@@ -65,7 +59,7 @@
             android:exported="true"
             android:label="@string/title_activity_maps"
             android:screenOrientation="portrait"
-            tools:ignore="LockedOrientationActivity">
+            tools:ignore="LockedOrientationActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
