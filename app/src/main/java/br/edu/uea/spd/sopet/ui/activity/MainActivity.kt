@@ -1,4 +1,4 @@
-package br.edu.uea.spd.sopet.ui
+package br.edu.uea.spd.sopet.ui.activity
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle

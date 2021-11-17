@@ -4,7 +4,6 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import br.edu.uea.spd.sopet.R
-import br.edu.uea.spd.sopet.ui.MainActivity
 import com.google.android.material.button.MaterialButton
 
 class Login : AppCompatActivity() {
