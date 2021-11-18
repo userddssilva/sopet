@@ -1,18 +1,18 @@
 package br.edu.uea.spd.sopet.ui.activity
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import br.edu.uea.spd.sopet.R
 import br.edu.uea.spd.sopet.ui.fragment.FavoritesFragment
 import br.edu.uea.spd.sopet.ui.fragment.PetListFragment
-import br.edu.uea.spd.sopet.ui.fragment.PlacesFragment1
+import br.edu.uea.spd.sopet.ui.fragment.PlacesFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class MainActivity : AppCompatActivity() {
 
     private val petListFragment = PetListFragment()
-    private val mapsFragment = PlacesFragment1()
+    private val mapsFragment = PlacesFragment()
     private val favoritesFragment = FavoritesFragment()
 
     private lateinit var bottomNavigation: BottomNavigationView
