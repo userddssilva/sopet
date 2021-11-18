@@ -60,6 +60,7 @@
 
         <!-- Pet image -->
         <ImageView
+            android:id="@+id/item_img_pet"
             android:layout_width="match_parent"
             android:layout_height="203dp"
             android:layout_marginTop="3dp"

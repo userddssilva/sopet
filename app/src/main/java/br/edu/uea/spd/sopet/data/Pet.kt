@@ -1,8 +1,9 @@
 package br.edu.uea.spd.sopet.data
 
+import androidx.annotation.DrawableRes
+
 data class Pet(
     val id: Int,
     val profileName: String,
-    val profileImg: Int,
-
+    @DrawableRes val profileImg: Int
 )
