@@ -23,4 +23,9 @@
     <string name="profile_image">Profile image</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="login">Login</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="purple_icon_app">Purple icon app</string>
 </resources>
