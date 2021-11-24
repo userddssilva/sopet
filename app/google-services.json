@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "951967560392",
+    "project_id": "sopet-app",
+    "storage_bucket": "sopet-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:951967560392:android:be587d9e114792b2b92bfd",
+        "android_client_info": {
+          "package_name": "br.edu.uea.spd.sopet"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "951967560392-651403mgombheggoq9jdbj5po0a3n7kn.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "br.edu.uea.spd.sopet",
+            "certificate_hash": "f855d882615cb38c136ce0925b898010c2a6fc6d"
+          }
+        },
+        {
+          "client_id": "951967560392-m7eudl1bvkdqnic3c1a9iuo25b6kgapr.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDqD443N9VwxlDGwlKz5BFcnbx6lcJyYZg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "951967560392-m7eudl1bvkdqnic3c1a9iuo25b6kgapr.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
