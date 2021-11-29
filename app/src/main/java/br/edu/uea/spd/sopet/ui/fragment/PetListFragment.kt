@@ -1,16 +1,16 @@
 package br.edu.uea.spd.sopet.ui.fragment
 
+import android.content.Intent
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
+import android.widget.ArrayAdapter
+import android.widget.AutoCompleteTextView
+import androidx.fragment.app.Fragment
 import br.edu.uea.spd.sopet.R
-import br.edu.uea.spd.sopet.adapter.PetAdapter
-import br.edu.uea.spd.sopet.data.Datasource
-import br.edu.uea.spd.sopet.data.Pet
+import br.edu.uea.spd.sopet.ui.activity.PostedPets
+import com.google.android.material.button.MaterialButton
 
 class PetListFragment : Fragment() {
 
@@ -19,14 +19,21 @@ class PetListFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
-        // Inflate the layout for this fragment
-        val view = inflater.inflate(R.layout.fragment_pet_list, container, false)
-        val recycleView : RecyclerView = view.findViewById(R.id.rc_pet_list)
-        val dataSet: List<Pet> = Datasource.loadPets()
-        val adapter = PetAdapter(dataSet)
+        val view = inflater.inflate(R.layout.fragment_find_donate_pet, container, false)
+        val animalTypes = view.findViewById<AutoCompleteTextView>(R.id.tf_animal_type)
+        val operationType = view.findViewById<AutoCompleteTextView>(R.id.tf_operation_type)
+        val btnNext = view.findViewById<MaterialButton>(R.id.btn_next)
+        val itemsAnimalTypes = listOf("Cachorro", "Gato", "Coelho", "Tartaruga")
+        val itemsOperationTypes = listOf("Adotar", "Perdido", "Doente")
+        val adapterAnimalTypes = ArrayAdapter(requireContext(), R.layout.list_item, itemsAnimalTypes)
+        val adapterOperationTypes = ArrayAdapter(requireContext(), R.layout.list_item, itemsOperationTypes)
 
-        recycleView.layoutManager = LinearLayoutManager(context)
-        recycleView.adapter = adapter
+        animalTypes.setAdapter(adapterAnimalTypes)
+        operationType.setAdapter(adapterOperationTypes)
+
+        btnNext.setOnClickListener {
+            startActivity(Intent(context, PostedPets::class.java))
+        }
 
         return view
     }
