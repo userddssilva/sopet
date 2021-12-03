@@ -44,7 +44,7 @@
     <string name="separator_like_reply">|</string>
     <string name="reply">Reply</string>
     <string name="placeholder_reply_example">8 replies</string>
-    <string name="show_more">Show more...</string>
+    <string name="show_more">Show more…</string>
     <string name="home">Home</string>
     <string name="profile">Profile</string>
 </resources>
