@@ -29,4 +29,22 @@
     <string name="sign_up">Sign Up</string>
     <string name="purple_icon_app">Purple icon app</string>
     <string name="find_your_pet_or_get_one">Econtre o seu amiginho perdido ou doe um pet</string>
+    <string name="placeholder_user_name">Rodrigo Santoro</string>
+    <string name="placeholder_time_post">2h</string>
+    <string name="button_follow">Follow</string>
+    <string name="placeholder_text_post">Body 2: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.</string>
+    <string name="placeholder_number_long_example">1,232</string>
+    <string name="button_comments">Comments</string>
+    <string name="placeholder_short_number">345</string>
+    <string name="shares">Shares</string>
+    <string name="like">Like</string>
+    <string name="comment">Comment</string>
+    <string name="share">Share</string>
+    <string name="placeholder_short_short_number">8</string>
+    <string name="separator_like_reply">|</string>
+    <string name="reply">Reply</string>
+    <string name="placeholder_reply_example">8 replies</string>
+    <string name="show_more">Show more...</string>
+    <string name="home">Home</string>
+    <string name="profile">Profile</string>
 </resources>

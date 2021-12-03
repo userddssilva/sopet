@@ -3,19 +3,25 @@
     <item
         android:id="@+id/page_1"
         android:enabled="true"
-        android:icon="@drawable/ic_baseline_wite_search_24"
-        android:title="@string/search" />
+        android:icon="@drawable/ic_baseline_white_home_24"
+        android:title="@string/home" />
 
     <item
         android:id="@+id/page_2"
         android:enabled="true"
-        android:icon="@drawable/ic_baseline_wite_place_24"
-        android:title="@string/places" />
+        android:icon="@drawable/ic_baseline_white_search_24"
+        android:title="@string/search" />
 
     <item
         android:id="@+id/page_3"
         android:enabled="true"
-        android:icon="@drawable/ic_baseline_wite_favorite_24"
-        android:title="@string/favorites" />
+        android:icon="@drawable/ic_baseline_white_place_24"
+        android:title="@string/places" />
+
+    <item
+        android:id="@+id/page_4"
+        android:enabled="true"
+        android:icon="@drawable/ic_baseline_white_person_24"
+        android:title="@string/profile" />
 
 </menu>

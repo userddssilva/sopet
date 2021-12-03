@@ -9,7 +9,7 @@ import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
 import androidx.fragment.app.Fragment
 import br.edu.uea.spd.sopet.R
-import br.edu.uea.spd.sopet.ui.activity.PostedPets
+import br.edu.uea.spd.sopet.ui.activity.FeedActivity
 import com.google.android.material.button.MaterialButton
 
 class PetListFragment : Fragment() {
@@ -20,20 +20,20 @@ class PetListFragment : Fragment() {
     ): View? {
 
         val view = inflater.inflate(R.layout.fragment_find_donate_pet, container, false)
-        val animalTypes = view.findViewById<AutoCompleteTextView>(R.id.tf_animal_type)
-        val operationType = view.findViewById<AutoCompleteTextView>(R.id.tf_operation_type)
-        val btnNext = view.findViewById<MaterialButton>(R.id.btn_next)
-        val itemsAnimalTypes = listOf("Cachorro", "Gato", "Coelho", "Tartaruga")
-        val itemsOperationTypes = listOf("Adotar", "Perdido", "Doente")
-        val adapterAnimalTypes = ArrayAdapter(requireContext(), R.layout.list_item, itemsAnimalTypes)
-        val adapterOperationTypes = ArrayAdapter(requireContext(), R.layout.list_item, itemsOperationTypes)
-
-        animalTypes.setAdapter(adapterAnimalTypes)
-        operationType.setAdapter(adapterOperationTypes)
-
-        btnNext.setOnClickListener {
-            startActivity(Intent(context, PostedPets::class.java))
-        }
+//        val animalTypes = view.findViewById<AutoCompleteTextView>(R.id.tf_animal_type)
+//        val operationType = view.findViewById<AutoCompleteTextView>(R.id.tf_operation_type)
+//        val btnNext = view.findViewById<MaterialButton>(R.id.btn_next)
+//        val itemsAnimalTypes = listOf("Cachorro", "Gato", "Coelho", "Tartaruga")
+//        val itemsOperationTypes = listOf("Adotar", "Perdido", "Doente")
+////        val adapterAnimalTypes = ArrayAdapter(requireContext(), R.layout.list_item, itemsAnimalTypes)
+////        val adapterOperationTypes = ArrayAdapter(requireContext(), R.layout.list_item, itemsOperationTypes)
+//
+////        animalTypes.setAdapter(adapterAnimalTypes)
+////        operationType.setAdapter(adapterOperationTypes)
+//
+//        btnNext.setOnClickListener {
+//            startActivity(Intent(context, FeedActivity::class.java))
+//        }
 
         return view
     }
