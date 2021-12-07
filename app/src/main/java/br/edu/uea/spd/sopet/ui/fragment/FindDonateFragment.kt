@@ -1,18 +1,13 @@
 package br.edu.uea.spd.sopet.ui.fragment
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ArrayAdapter
-import android.widget.AutoCompleteTextView
 import androidx.fragment.app.Fragment
 import br.edu.uea.spd.sopet.R
-import br.edu.uea.spd.sopet.ui.activity.FeedActivity
-import com.google.android.material.button.MaterialButton
 
-class PetListFragment : Fragment() {
+class FindDonateFragment : Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

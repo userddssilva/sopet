@@ -5,17 +5,17 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import br.edu.uea.spd.sopet.R
 import br.edu.uea.spd.sopet.ui.fragment.FavoritesFragment
-import br.edu.uea.spd.sopet.ui.fragment.HomeFragment
-import br.edu.uea.spd.sopet.ui.fragment.PetListFragment
+import br.edu.uea.spd.sopet.ui.fragment.FeedHomeFragment
+import br.edu.uea.spd.sopet.ui.fragment.FindDonateFragment
 import br.edu.uea.spd.sopet.ui.fragment.PlacesFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class MainActivity : AppCompatActivity() {
 
-    private val petListFragment = PetListFragment()
+    private val petListFragment = FindDonateFragment()
     private val mapsFragment = PlacesFragment()
     private val favoritesFragment = FavoritesFragment()
-    private val homeFragment = HomeFragment()
+    private val homeFragment = FeedHomeFragment()
 
     private lateinit var bottomNavigation: BottomNavigationView
 

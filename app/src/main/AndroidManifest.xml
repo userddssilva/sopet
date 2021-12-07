@@ -21,13 +21,6 @@
         tools:ignore="AllowBackup">
 
         <activity
-            android:name=".ui.activity.FeedActivity"
-            android:exported="true"
-            android:parentActivityName=".ui.activity.MainActivity"
-            android:screenOrientation="portrait"
-            tools:ignore="LockedOrientationActivity" />
-
-        <activity
             android:name=".ui.activity.Initial"
             android:exported="true"
             android:screenOrientation="portrait"
@@ -47,9 +40,9 @@
         </activity>
 
         <activity
-            android:name=".ui.activity.CardDetailsActivity"
+            android:name=".ui.activity.PostDetailsActivity"
             android:exported="true"
-            android:parentActivityName=".ui.activity.PetList"
+            android:parentActivityName=".ui.activity.MainActivity"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
 
