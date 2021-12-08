@@ -17,4 +17,13 @@
     <style name="ThemeNoTitle" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <item name="android:windowNoTitle">true</item>
     </style>
+
+    <style name="Theme.Sopet.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="Theme.Sopet.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="Theme.Sopet.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 </resources>

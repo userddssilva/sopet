@@ -19,14 +19,22 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Sopet"
         tools:ignore="AllowBackup">
-
+        <activity
+            android:name=".ui.activity.PublishActivity"
+            android:exported="false"
+            android:label="@string/title_activity_public"
+            android:theme="@style/Theme.Sopet.NoActionBar" />
+        <activity
+            android:name=".ui.activity.PublishFragment"
+            android:exported="false"
+            android:label="@string/title_activity_publish_fragment"
+            android:theme="@style/Theme.Sopet.NoActionBar" />
         <activity
             android:name=".ui.activity.Initial"
             android:exported="true"
             android:screenOrientation="portrait"
             android:theme="@style/ThemeNoTitle"
             tools:ignore="LockedOrientationActivity" />
-
         <activity
             android:name=".ui.activity.MainActivity"
             android:exported="true"
@@ -35,30 +43,27 @@
             tools:ignore="LockedOrientationActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".ui.activity.PostDetailsActivity"
             android:exported="true"
             android:parentActivityName=".ui.activity.MainActivity"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
-
         <activity
             android:name=".ui.activity.PetList"
             android:exported="true"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
-
         <activity
             android:name=".ui.activity.Login"
             android:exported="true"
             android:screenOrientation="portrait"
             android:theme="@style/ThemeNoTitle"
             tools:ignore="LockedOrientationActivity" />
-
         <!--
          The API key for Google Maps-based APIs is defined as a string resource.
          (See the file "res/values/google_maps_api.xml").

@@ -21,7 +21,6 @@
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
     <string name="profile_image">Profile image</string>
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="email">Email</string>
     <string name="password">Password</string>
@@ -47,4 +46,16 @@
     <string name="show_more">Show more…</string>
     <string name="home">Home</string>
     <string name="profile">Profile</string>
+    <string name="publish">Publish</string>
+    <string name="notification">Notification</string>
+    <string name="title_activity_publish_fragment">PublishFragment</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="first_fragment_label">First Fragment</string>
+    <string name="second_fragment_label">Second Fragment</string>
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
+
+    <string name="hello_first_fragment">Hello first fragment</string>
+    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+    <string name="title_activity_public">PublicActivity</string>
 </resources>

@@ -14,6 +14,10 @@ class DetailsCommentAdapter(
     private val listener: (Comment) -> Unit
 ) : RecyclerView.Adapter<ViewHolder>() {
 
+    inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+
+    }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.item_comment_recyclerview, parent, false)
@@ -21,16 +25,9 @@ class DetailsCommentAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        TODO("Not yet implemented")
+
     }
 
     override fun getItemCount(): Int = dataset.size
 
-    interface OnItemClickListener {
-        fun onItemClick(item: Comment)
-    }
-
-    inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-
-    }
 }

@@ -9,17 +9,23 @@
     <item
         android:id="@+id/page_2"
         android:enabled="true"
-        android:icon="@drawable/ic_baseline_white_search_24"
-        android:title="@string/search" />
-
-    <item
-        android:id="@+id/page_3"
-        android:enabled="true"
         android:icon="@drawable/ic_baseline_white_place_24"
         android:title="@string/places" />
 
     <item
+        android:id="@+id/page_3"
+        android:enabled="true"
+        android:icon="@drawable/ic_baseline_add_circle_24"
+        android:title="@string/publish" />
+
+    <item
         android:id="@+id/page_4"
+        android:enabled="true"
+        android:icon="@drawable/ic_baseline_notifications_24"
+        android:title="@string/notification" />
+
+    <item
+        android:id="@+id/page_5"
         android:enabled="true"
         android:icon="@drawable/ic_baseline_white_person_24"
         android:title="@string/profile" />

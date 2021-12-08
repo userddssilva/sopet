@@ -1,5 +1,7 @@
 package br.edu.uea.spd.sopet.adapter
 
+import android.os.Debug
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,23 +16,21 @@ class CommentAdapter(
 ) : RecyclerView.Adapter<CommentAdapter.ViewHolder>() {
 
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val profileName: TextView = view.findViewById(R.id.tv_comment_user_name)
+//        val profileName: TextView = view.findViewById(R.id.tv_comment_user_name)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.item_comment, parent, false)
+            .inflate(R.layout.item_comment_recyclerview, parent, false)
         return ViewHolder(view)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = dataset[position]
+//        Log.d("User name", item.user.userName)
+//        holder.profileName.text =  item.user.userName
         holder.itemView.setOnClickListener { listener(item) }
     }
 
     override fun getItemCount(): Int = dataset.size
-
-    interface OnItemClickListener {
-        fun onItemClick(item: Comment?)
-    }
 }
