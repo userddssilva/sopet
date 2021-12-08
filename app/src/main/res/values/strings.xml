@@ -58,4 +58,11 @@
     <string name="hello_first_fragment">Hello first fragment</string>
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
     <string name="title_activity_public">PublicActivity</string>
+    <string name="forgot_password">Forgot Password?</string>
+    <string name="dialog_sending_email">Sending email...</string>
+    <string name="toast_dont_sent_email">It was not possible to send the email</string>
+    <string name="dialog_logging_in">Logging in ...</string>
+    <string name="toast_autenticaton_failed">Authentication failed</string>
+    <string name="email_sent">Email Sent</string>
+    <string name="dialog_creating_account">Creating Account</string>
 </resources>
