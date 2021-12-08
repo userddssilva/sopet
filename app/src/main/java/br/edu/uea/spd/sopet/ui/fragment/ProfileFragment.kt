@@ -1,11 +1,17 @@
 package br.edu.uea.spd.sopet.ui.fragment
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import br.edu.uea.spd.sopet.R
+import br.edu.uea.spd.sopet.ui.activity.LoginActivity
+import br.edu.uea.spd.sopet.ui.activity.MainActivity
+import com.google.android.material.button.MaterialButton
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -35,7 +41,15 @@ class ProfileFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_profile, container, false)
+        val view = inflater.inflate(R.layout.fragment_profile, container, false)
+        val btnLogout = view.findViewById<MaterialButton>(R.id.btn_logout)
+        btnLogout.setOnClickListener {
+            val auth = Firebase.auth
+            auth.signOut()
+            startActivity(Intent(context, LoginActivity::class.java))
+            activity?.finish()
+        }
+        return view
     }
 
     companion object {

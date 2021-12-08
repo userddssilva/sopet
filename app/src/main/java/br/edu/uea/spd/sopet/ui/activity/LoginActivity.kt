@@ -24,7 +24,10 @@ import com.google.android.material.textfield.TextInputLayout
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.ktx.Firebase
+import java.util.*
+import kotlin.collections.HashMap
 
 class LoginActivity : AppCompatActivity() {
     private val RC_SIGN_IN: Int = 100
@@ -166,6 +169,26 @@ class LoginActivity : AppCompatActivity() {
                 progressDialog.dismiss()
                 if (task.isSuccessful) {
                     // Sign in success, update UI with the signed-in user's information
+
+                    val user = auth.currentUser
+                    val uEmail = user?.email
+                    val uid = user?.uid
+                    val hashMap = HashMap<Any, String>()
+
+                    hashMap["email"] = uEmail.toString()
+                    hashMap["uid"] = uid.toString()
+                    hashMap["name"] = ""
+                    hashMap["email"] = ""
+                    hashMap["phone"] = ""
+                    hashMap["image"] = ""
+
+                    val database = FirebaseDatabase.getInstance()
+                    // path to store user data name "Users"
+                    val reference = database.getReference("Users")
+                    // put data within hashmap in database
+                    reference.child(uid.toString()).setValue(hashMap)
+
+
                     Log.d(LOGIN_TAG_DEBUG, "createUserWithEmail:success")
                     startActivity(Intent(this, MainActivity::class.java))
                     finish()
@@ -184,6 +207,26 @@ class LoginActivity : AppCompatActivity() {
             .addOnCompleteListener(this) { task ->
                 progressDialog.dismiss()
                 if (task.isSuccessful) {
+
+                    val user = auth.currentUser
+                    val uEmail = user?.email
+                    val uid = user?.uid
+                    val hashMap = HashMap<Any, String>()
+
+                    hashMap["email"] = uEmail.toString()
+                    hashMap["uid"] = uid.toString()
+                    hashMap["name"] = ""
+                    hashMap["email"] = ""
+                    hashMap["phone"] = ""
+                    hashMap["image"] = ""
+
+                    val database = FirebaseDatabase.getInstance()
+                    // path to store user data name "Users"
+                    val reference = database.getReference("Users")
+                    // put data within hashmap in database
+                    reference.child(uid.toString()).setValue(hashMap)
+
+
                     // Sign in success, update UI with the signed-in user's information
                     Log.d(LOGIN_TAG_DEBUG, "signInWithEmail:success")
                     startActivity(Intent(this, MainActivity::class.java))
@@ -224,6 +267,26 @@ class LoginActivity : AppCompatActivity() {
         auth.signInWithCredential(credential)
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
+
+                    val user = auth.currentUser
+                    val uEmail = user?.email
+                    val uid = user?.uid
+                    val hashMap = HashMap<Any, String>()
+
+                    hashMap["email"] = uEmail.toString()
+                    hashMap["uid"] = uid.toString()
+                    hashMap["name"] = ""
+                    hashMap["email"] = ""
+                    hashMap["phone"] = ""
+                    hashMap["image"] = ""
+
+                    val database = FirebaseDatabase.getInstance()
+                    // path to store user data name "Users"
+                    val reference = database.getReference("Users")
+                    // put data within hashmap in database
+                    reference.child(uid.toString()).setValue(hashMap)
+
+
                     // Sign in success, update UI with the signed-in user's information
                     Log.d("Login Google", "signInWithCredential:success")
                     startActivity(Intent(this, MainActivity::class.java))
