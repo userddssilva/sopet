@@ -18,16 +18,16 @@ import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.SignInButton
 import com.google.android.gms.common.api.ApiException
+import com.google.android.gms.tasks.Task
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
+import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.ktx.Firebase
-import java.util.*
-import kotlin.collections.HashMap
 
 class LoginActivity : AppCompatActivity() {
     private val RC_SIGN_IN: Int = 100
@@ -161,6 +161,27 @@ class LoginActivity : AppCompatActivity() {
         return true
     }
 
+    private fun persistenceUserDataFirebase() {
+        val user = auth.currentUser
+        val uEmail = user?.email.toString()
+        val uid = user?.uid.toString()
+        val hashMap = HashMap<String, Any>()
+
+        hashMap["uid"] = uid
+        hashMap["email"] = uEmail
+        hashMap["name"] = ""
+        hashMap["phone"] = ""
+        hashMap["image"] = ""
+
+
+        val database = FirebaseDatabase.getInstance()
+        // path to store user data name "Users"
+        val reference = database.getReference("Users")
+        // put data within hashmap in database
+        reference.child(uid).setValue(hashMap)
+    }
+
+
     private fun createAccount(email: String, password: String) {
         progressDialog.setMessage(getString(R.string.dialog_creating_account))
         progressDialog.show()
@@ -169,33 +190,17 @@ class LoginActivity : AppCompatActivity() {
                 progressDialog.dismiss()
                 if (task.isSuccessful) {
                     // Sign in success, update UI with the signed-in user's information
-
-                    val user = auth.currentUser
-                    val uEmail = user?.email
-                    val uid = user?.uid
-                    val hashMap = HashMap<Any, String>()
-
-                    hashMap["email"] = uEmail.toString()
-                    hashMap["uid"] = uid.toString()
-                    hashMap["name"] = ""
-                    hashMap["email"] = ""
-                    hashMap["phone"] = ""
-                    hashMap["image"] = ""
-
-                    val database = FirebaseDatabase.getInstance()
-                    // path to store user data name "Users"
-                    val reference = database.getReference("Users")
-                    // put data within hashmap in database
-                    reference.child(uid.toString()).setValue(hashMap)
-
-
                     Log.d(LOGIN_TAG_DEBUG, "createUserWithEmail:success")
                     startActivity(Intent(this, MainActivity::class.java))
                     finish()
                 } else {
                     // If sign in fails, display a message to the user.
                     Log.w(LOGIN_TAG_DEBUG, "createUserWithEmail:failure", task.exception)
-                    Toast.makeText(this, getString(R.string.toast_autenticaton_failed), Toast.LENGTH_SHORT).show()
+                    Toast.makeText(
+                        this,
+                        getString(R.string.toast_autenticaton_failed),
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
             }
     }
@@ -207,26 +212,6 @@ class LoginActivity : AppCompatActivity() {
             .addOnCompleteListener(this) { task ->
                 progressDialog.dismiss()
                 if (task.isSuccessful) {
-
-                    val user = auth.currentUser
-                    val uEmail = user?.email
-                    val uid = user?.uid
-                    val hashMap = HashMap<Any, String>()
-
-                    hashMap["email"] = uEmail.toString()
-                    hashMap["uid"] = uid.toString()
-                    hashMap["name"] = ""
-                    hashMap["email"] = ""
-                    hashMap["phone"] = ""
-                    hashMap["image"] = ""
-
-                    val database = FirebaseDatabase.getInstance()
-                    // path to store user data name "Users"
-                    val reference = database.getReference("Users")
-                    // put data within hashmap in database
-                    reference.child(uid.toString()).setValue(hashMap)
-
-
                     // Sign in success, update UI with the signed-in user's information
                     Log.d(LOGIN_TAG_DEBUG, "signInWithEmail:success")
                     startActivity(Intent(this, MainActivity::class.java))
@@ -234,7 +219,11 @@ class LoginActivity : AppCompatActivity() {
                 } else {
                     // If sign in fails, display a message to the user.
                     Log.w(LOGIN_TAG_DEBUG, "signInWithEmail:failure", task.exception)
-                    Toast.makeText(this, getString(R.string.toast_autenticaton_failed), Toast.LENGTH_SHORT).show()
+                    Toast.makeText(
+                        this,
+                        getString(R.string.toast_autenticaton_failed),
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
             }
     }
@@ -267,26 +256,7 @@ class LoginActivity : AppCompatActivity() {
         auth.signInWithCredential(credential)
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
-
-                    val user = auth.currentUser
-                    val uEmail = user?.email
-                    val uid = user?.uid
-                    val hashMap = HashMap<Any, String>()
-
-                    hashMap["email"] = uEmail.toString()
-                    hashMap["uid"] = uid.toString()
-                    hashMap["name"] = ""
-                    hashMap["email"] = ""
-                    hashMap["phone"] = ""
-                    hashMap["image"] = ""
-
-                    val database = FirebaseDatabase.getInstance()
-                    // path to store user data name "Users"
-                    val reference = database.getReference("Users")
-                    // put data within hashmap in database
-                    reference.child(uid.toString()).setValue(hashMap)
-
-
+                    getShowInfoFromGoogle(task)
                     // Sign in success, update UI with the signed-in user's information
                     Log.d("Login Google", "signInWithCredential:success")
                     startActivity(Intent(this, MainActivity::class.java))
@@ -294,12 +264,22 @@ class LoginActivity : AppCompatActivity() {
                 } else {
                     // If sign in fails, display a message to the user.
                     Log.w("Login Google", "signInWithCredential:failure", task.exception)
-                    Toast.makeText(this, getString(R.string.toast_autenticaton_failed), Toast.LENGTH_SHORT).show()
+                    Toast.makeText(
+                        this,
+                        getString(R.string.toast_autenticaton_failed),
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
             }
             .addOnFailureListener { exception ->
                 Toast.makeText(this, "${exception.message}", Toast.LENGTH_SHORT).show()
             }
+    }
+
+    private fun getShowInfoFromGoogle(task: Task<AuthResult>) {
+        if (task.result.additionalUserInfo?.isNewUser == true) {
+            persistenceUserDataFirebase()
+        }
     }
 
 }

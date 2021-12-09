@@ -1,74 +1,84 @@
 package br.edu.uea.spd.sopet.ui.fragment
 
-import android.content.Intent
 import android.os.Bundle
-import androidx.fragment.app.Fragment
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.TextView
+import androidx.fragment.app.Fragment
 import br.edu.uea.spd.sopet.R
-import br.edu.uea.spd.sopet.ui.activity.LoginActivity
-import br.edu.uea.spd.sopet.ui.activity.MainActivity
-import com.google.android.material.button.MaterialButton
-import com.google.firebase.auth.ktx.auth
-import com.google.firebase.ktx.Firebase
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.database.*
+import com.squareup.picasso.Picasso
+import java.lang.Exception
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
 
-/**
- * A simple [Fragment] subclass.
- * Use the [ProfileFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class ProfileFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
+    // Firebase
+    private lateinit var firebaseAuth: FirebaseAuth
+    private lateinit var firebaseUser: FirebaseUser
+    private lateinit var firebaseDatabase: FirebaseDatabase
+    private lateinit var databaseReference: DatabaseReference
+
+    // Views from xml
+    private lateinit var ivAvatar: ImageView
+    private lateinit var tvName: TextView
+    private lateinit var tvEmail: TextView
+    private lateinit var tvPhone: TextView
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_profile, container, false)
-        val btnLogout = view.findViewById<MaterialButton>(R.id.btn_logout)
-        btnLogout.setOnClickListener {
-            val auth = Firebase.auth
-            auth.signOut()
-            startActivity(Intent(context, LoginActivity::class.java))
-            activity?.finish()
-        }
-        return view
-    }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment FavoriteFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            ProfileFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
+        // Init Firebase
+        firebaseAuth = FirebaseAuth.getInstance()
+        firebaseUser = firebaseAuth.currentUser!!
+        firebaseDatabase = FirebaseDatabase.getInstance()
+        databaseReference = firebaseDatabase.getReference("Users")
+
+        // Init views
+        ivAvatar = view.findViewById(R.id.iv_avatar)
+        tvEmail = view.findViewById(R.id.tv_email)
+        tvName = view.findViewById(R.id.tv_user_name)
+        tvPhone = view.findViewById(R.id.tv_phone)
+
+        // Query
+        val query = databaseReference.orderByChild("email").equalTo(firebaseUser.email)
+        // My top posts by number of stars
+        query.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                for (postSnapshot in dataSnapshot.children) {
+                    // Get data
+                    val name = "${postSnapshot.child("name").value}"
+                    val email = "${postSnapshot.child("email").value}"
+                    val phone = "${postSnapshot.child("phone").value}"
+                    val image = "${postSnapshot.child("image").value}"
+
+                    // Set data
+                    tvName.text = name
+                    tvEmail.text = email
+                    tvPhone.text = phone
+                    try {
+                        // If image is received then set
+                        Picasso.get().load(image).into(ivAvatar)
+                    } catch (e: Exception) {
+                        // If there is any exception while getting image then set default
+                        Picasso.get().load(R.drawable.ic_baseline_add_a_photo_24).into(ivAvatar)
+                    }
                 }
             }
+
+            override fun onCancelled(databaseError: DatabaseError) {
+                // Getting Post failed, log a message
+                Log.w("Firebase", "loadPost:onCancelled", databaseError.toException())
+            }
+        })
+        return view
     }
 }
