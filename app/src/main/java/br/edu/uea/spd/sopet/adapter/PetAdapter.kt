@@ -5,7 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import br.edu.uea.spd.sopet.R
-import br.edu.uea.spd.sopet.data.Pet
+import br.edu.uea.spd.sopet.data.model.Pet
 
 class PetAdapter(
     private val dataset: List<Pet>,

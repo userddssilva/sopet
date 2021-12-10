@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import br.edu.uea.spd.sopet.R
 import br.edu.uea.spd.sopet.adapter.DetailsCommentAdapter.ViewHolder
-import br.edu.uea.spd.sopet.data.Comment
+import br.edu.uea.spd.sopet.data.model.Comment
 
 
 class DetailsCommentAdapter(

@@ -11,6 +11,8 @@
         android:name="android.permission.ACCESS_FINE_LOCATION"
         tools:ignore="CoarseFineLocation" />
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -20,19 +22,26 @@
         android:theme="@style/Theme.Sopet"
         tools:ignore="AllowBackup">
         <activity
+            android:name=".ui.activity.ChatActivity"
+            android:exported="true"
+            android:parentActivityName=".ui.activity.MainActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/ThemeNoTitle"
+            tools:ignore="LockedOrientationActivity"  />
+        <activity
             android:name=".ui.activity.PublishActivity"
             android:exported="false"
             android:label="@string/title_activity_public"
             android:theme="@style/Theme.Sopet.NoActionBar" />
-
         <activity
             android:name=".ui.activity.InitialActivity"
             android:exported="true"
             android:screenOrientation="portrait"
             android:theme="@style/ThemeNoTitle"
-            tools:ignore="LockedOrientationActivity" >
+            tools:ignore="LockedOrientationActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -48,7 +57,6 @@
             android:parentActivityName=".ui.activity.MainActivity"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
-
         <activity
             android:name=".ui.activity.LoginActivity"
             android:exported="true"

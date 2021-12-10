@@ -1,4 +1,4 @@
-package br.edu.uea.spd.sopet.data
+package br.edu.uea.spd.sopet.data.model
 
 import androidx.annotation.DrawableRes
 

@@ -28,7 +28,7 @@
     <string name="sign_up">Sign Up</string>
     <string name="purple_icon_app">Purple icon app</string>
     <string name="find_your_pet_or_get_one">Econtre o seu amiginho perdido ou doe um pet</string>
-    <string name="placeholder_user_name">Rodrigo Santoro</string>
+    <string name="placeholder_user_name">User Name</string>
     <string name="placeholder_time_post">2h</string>
     <string name="button_follow">Follow</string>
     <string name="placeholder_text_post">Body 2: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.</string>
@@ -67,4 +67,7 @@
     <string name="dialog_creating_account">Creating Account</string>
     <string name="logout">Logout</string>
     <string name="phone">Phone</string>
+    <string name="chat">Chat</string>
+    <string name="online">Online</string>
+    <string name="start_typing">Start Typing</string>
 </resources>

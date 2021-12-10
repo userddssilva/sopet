@@ -9,7 +9,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class MainActivity : AppCompatActivity() {
 
-    private val notificationFragment = NotificationFragment()
+    private val chatListFragment = ChatListFragment()
     private val mapsFragment = PlacesFragment()
     private val publishFragment = PublishFragment()
     private val profileFragment = ProfileFragment()
@@ -30,7 +30,7 @@ class MainActivity : AppCompatActivity() {
                 R.id.page_1 -> replaceFragment(homeFragment)
                 R.id.page_2 -> replaceFragment(mapsFragment)
                 R.id.page_3 -> replaceFragment(publishFragment)
-                R.id.page_4 -> replaceFragment(notificationFragment)
+                R.id.page_4 -> replaceFragment(chatListFragment)
                 R.id.page_5-> replaceFragment(profileFragment)
             }
             true

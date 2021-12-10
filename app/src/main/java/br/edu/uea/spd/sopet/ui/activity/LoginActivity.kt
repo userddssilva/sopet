@@ -172,6 +172,7 @@ class LoginActivity : AppCompatActivity() {
         hashMap["name"] = ""
         hashMap["phone"] = ""
         hashMap["image"] = ""
+        hashMap["cover"] = ""
 
 
         val database = FirebaseDatabase.getInstance()
@@ -189,6 +190,7 @@ class LoginActivity : AppCompatActivity() {
             .addOnCompleteListener(this) { task ->
                 progressDialog.dismiss()
                 if (task.isSuccessful) {
+                    persistenceUserDataFirebase()
                     // Sign in success, update UI with the signed-in user's information
                     Log.d(LOGIN_TAG_DEBUG, "createUserWithEmail:success")
                     startActivity(Intent(this, MainActivity::class.java))

@@ -1,14 +1,11 @@
 package br.edu.uea.spd.sopet.adapter
 
-import android.os.Debug
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import br.edu.uea.spd.sopet.R
-import br.edu.uea.spd.sopet.data.Comment
+import br.edu.uea.spd.sopet.data.model.Comment
 
 class CommentAdapter(
     private val dataset: List<Comment>,

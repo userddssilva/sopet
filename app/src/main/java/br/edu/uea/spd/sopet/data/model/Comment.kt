@@ -1,4 +1,4 @@
-package br.edu.uea.spd.sopet.data
+package br.edu.uea.spd.sopet.data.model
 
 data class Comment (
     val id: Int,

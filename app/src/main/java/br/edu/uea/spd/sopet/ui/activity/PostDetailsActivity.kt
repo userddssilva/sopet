@@ -7,8 +7,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import br.edu.uea.spd.sopet.R
 import br.edu.uea.spd.sopet.adapter.CommentAdapter
-import br.edu.uea.spd.sopet.data.Comment
-import br.edu.uea.spd.sopet.data.Datasource
+import br.edu.uea.spd.sopet.data.model.Comment
+import br.edu.uea.spd.sopet.data.model.Datasource
 
 class PostDetailsActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
