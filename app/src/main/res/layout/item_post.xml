@@ -84,21 +84,30 @@
         </LinearLayout>
     </LinearLayout>
 
-    <TextView
+    <!-- Post items -->
+    <LinearLayout
+        android:id="@+id/ll_items_posts"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="8dp"
-        android:text="@string/placeholder_text_post"
-        android:textColor="@color/black_87" />
+        android:orientation="vertical">
 
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="300dp"
-        android:scaleType="centerCrop"
-        app:srcCompat="@drawable/img_pet_photo"
-        tools:ignore="ContentDescription" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="8dp"
+            android:text="@string/placeholder_text_post"
+            android:textColor="@color/black_87" />
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:scaleType="centerCrop"
+            app:srcCompat="@drawable/img_pet_photo"
+            tools:ignore="ContentDescription" />
+
+    </LinearLayout>
 
     <LinearLayout
         android:layout_width="fill_parent"
@@ -117,7 +126,6 @@
                 android:layout_height="12dp"
                 android:layout_gravity="center_vertical"
                 android:layout_marginStart="35dp"
-                android:background="?attr/selectableItemBackgroundBorderless"
                 android:src="@drawable/ic_outline_favorite_24"
                 tools:ignore="ContentDescription" />
 
@@ -185,44 +193,37 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_marginTop="4dp"
-        android:layout_marginBottom="12dp"
         android:background="@color/divider_color" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
+        android:minHeight="50dp"
         android:orientation="horizontal">
 
         <Button
             style="@style/Widget.MaterialComponents.Button.TextButton"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:background="@null"
-            android:drawablePadding="20dp"
             android:text="@string/like"
             app:icon="@drawable/ic_outline_favorite_24" />
 
         <Button
             style="@style/Widget.MaterialComponents.Button.TextButton"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:background="@null"
-            android:drawablePadding="20dp"
             android:text="@string/comment"
             app:icon="@drawable/ic_baseline_comment_24" />
 
         <Button
             style="@style/Widget.MaterialComponents.Button.TextButton"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:background="@null"
-            android:drawablePadding="20dp"
             android:text="@string/share"
-
             app:icon="@drawable/ic_baseline_share_24" />
 
     </LinearLayout>
@@ -230,7 +231,6 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:layout_marginTop="12dp"
         android:background="@color/divider_color" />
 
 </LinearLayout>

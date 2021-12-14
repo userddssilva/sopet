@@ -170,10 +170,11 @@ class LoginActivity : AppCompatActivity() {
         hashMap["uid"] = uid
         hashMap["email"] = uEmail
         hashMap["name"] = ""
+        hashMap["status"] = ""
+        hashMap["type"] = ""
         hashMap["phone"] = ""
         hashMap["image"] = ""
         hashMap["cover"] = ""
-
 
         val database = FirebaseDatabase.getInstance()
         // path to store user data name "Users"
@@ -181,7 +182,6 @@ class LoginActivity : AppCompatActivity() {
         // put data within hashmap in database
         reference.child(uid).setValue(hashMap)
     }
-
 
     private fun createAccount(email: String, password: String) {
         progressDialog.setMessage(getString(R.string.dialog_creating_account))

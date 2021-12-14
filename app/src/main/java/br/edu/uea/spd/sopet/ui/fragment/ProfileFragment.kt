@@ -93,13 +93,11 @@ class ProfileFragment : Fragment() {
 
 
         // Query
-        println("DEBUG ----> ${firebaseUser.email}")
         val query = databaseReference.orderByChild("email").equalTo(firebaseUser.email)
         // My top posts by number of stars
         query.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 for (postSnapshot in dataSnapshot.children) {
-                    println("DEBUG ----> entrou")
                     // Get data
                     val name = "${postSnapshot.child("name").value}"
                     val email = "${postSnapshot.child("email").value}"

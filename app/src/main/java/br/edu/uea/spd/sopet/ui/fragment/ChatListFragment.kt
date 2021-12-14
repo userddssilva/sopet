@@ -52,7 +52,7 @@ class ChatListFragment : Fragment() {
                     if (!mUser?.uid.equals(fUser?.uid)) {
                         mUser?.let { usersList.add(it) }
                     }
-                    adapterUser = UserChatAdapter(activity!!.applicationContext, usersList)
+                    adapterUser = UserChatAdapter(usersList)
                     recycleView.adapter = adapterUser
                 }
             }

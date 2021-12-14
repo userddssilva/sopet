@@ -1,6 +1,9 @@
-package br.edu.uea.spd.sopet.data.model
+package br.edu.uea.spd.sopet.data
 
 import br.edu.uea.spd.sopet.R
+import br.edu.uea.spd.sopet.data.model.Comment
+import br.edu.uea.spd.sopet.data.model.Pet
+import br.edu.uea.spd.sopet.data.model.User
 
 class Datasource {
     companion object {
@@ -25,61 +28,62 @@ class Datasource {
                     id = 1,
                     time = "2w",
                     text = R.string.placeholder_text_post.toString(),
-                    User("1234", "Roberto Justo", "uri", "", "'", "")
+                    User("1234", "Roberto Justo", "uri", "", "", "", "", "")
                 ),
                 Comment(
                     id = 2,
                     time = "3h",
                     text = R.string.placeholder_text_post.toString(),
-                    User("1234", "Neymar junior", "uri", "", "'", "")
+                    User("1234", "Roberto Justo", "uri", "", "", "", "", "")
                 ),
                 Comment(
                     id = 3,
                     time = "3d",
                     text = R.string.placeholder_text_post.toString(),
-                    User("1234", "Jorge Aragão", "uri", "", "'", "")
+                    User("1234", "Roberto Justo", "uri", "", "", "", "", "")
+
                 ),
                 Comment(
                     id = 4,
                     time = "7h",
                     text = R.string.placeholder_text_post.toString(),
-                    User("1234", "Seu Jorge", "uri", "", "'", "")
+                    User("1234", "Roberto Justo", "uri", "", "", "", "", "")
                 ),
                 Comment(
                     id = 5,
                     time = "12h",
                     text = R.string.placeholder_text_post.toString(),
-                    User("1234", "Mr. Robot", "uri", "", "'", "")
+                    User("1234", "Roberto Justo", "uri", "", "", "", "", "")
                 ),
                 Comment(
                     id = 6,
                     time = "2h",
                     text = R.string.placeholder_text_post.toString(),
-                    User("1234", "Dj Alok", "uri", "", "'", "")
+                    User("1234", "Roberto Justo", "uri", "", "", "", "", "")
                 ),
                 Comment(
                     id = 7,
                     time = "7W",
                     text = R.string.placeholder_text_post.toString(),
-                    User("1234", "Mariana Barbosa", "uri", "", "'", "")
+                    User("1234", "Roberto Justo", "uri", "", "", "", "", "")
                 ),
                 Comment(
                     id = 8,
                     time = "9W",
                     text = R.string.placeholder_text_post.toString(),
-                    User("1234", "Helena de Jesus", "uri", "", "'", "")
+                    User("1234", "Roberto Justo", "uri", "", "", "", "", "")
                 ),
                 Comment(
                     id = 9,
                     time = "5d",
                     text = R.string.placeholder_text_post.toString(),
-                    User("1234", "Caio Android", "uri", "", "'", "")
+                    User("1234", "Roberto Justo", "uri", "", "", "", "", "")
                 ),
                 Comment(
                     id = 10,
                     time = "1h",
                     text = R.string.placeholder_text_post.toString(),
-                    User("1234", "Bob Marley", "uri", "", "'", "")
+                    User("1234", "Roberto Justo", "uri", "", "", "", "", "")
                 ),
             )
         }

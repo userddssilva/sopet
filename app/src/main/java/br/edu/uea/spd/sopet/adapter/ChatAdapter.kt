@@ -1,6 +1,7 @@
 package br.edu.uea.spd.sopet.adapter
 
 import android.text.format.DateFormat
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,7 +13,6 @@ import br.edu.uea.spd.sopet.data.model.Chat
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.squareup.picasso.Picasso
-import java.lang.Exception
 import java.util.*
 
 
@@ -20,6 +20,8 @@ class ChatAdapter(
     private val dataset: List<Chat>,
     private val imageUrl: String,
 ) : RecyclerView.Adapter<ChatAdapter.ViewHolder>() {
+
+    private val TAG: String? = ChatAdapter::class.java.simpleName
 
     private lateinit var firebaseUser: FirebaseUser
 
@@ -29,50 +31,52 @@ class ChatAdapter(
     }
 
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val hTvTimestamp: TextView = view.findViewById(R.id.tv_timestamp)
-        val hTvConfirmDelivered: TextView = view.findViewById(R.id.tv_confirm_delivered)
-        val hTvMessage: TextView = view.findViewById(R.id.tv_message)
-        val hIvProfile: ImageView = view.findViewById(R.id.iv_profile)
+        val mTvTimestamp: TextView = view.findViewById(R.id.tv_timestamp)
+        val mTvConfirmDelivered: TextView = view.findViewById(R.id.tv_confirm_delivered)
+        val mTvMessage: TextView = view.findViewById(R.id.tv_message)
+        val mIvProfile: ImageView = view.findViewById(R.id.iv_profile)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view: View = if (viewType == MSG_TYPE_RIGHT) {
             LayoutInflater.from(parent.context)
-                .inflate(R.layout.row_chat_right, parent, false)
+                .inflate(R.layout.item_chat_right, parent, false)
 
         } else {
             LayoutInflater.from(parent.context)
-                .inflate(R.layout.row_chat_left, parent, false)
+                .inflate(R.layout.item_chat_left, parent, false)
 
         }
         return ViewHolder(view)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        val datetime: String?
         val message = dataset[position].message
         val timestamp = dataset[position].timestamp
-
         val cal = Calendar.getInstance(Locale.ENGLISH)
-        cal.timeInMillis = timestamp?.toLongOrNull()!!
-        val datetime = DateFormat.format("dd/MM/yyyy hh:mm aa", cal).toString()
 
-        holder.hTvMessage.text = message
-        holder.hTvTimestamp.text = datetime
+        cal.timeInMillis = (timestamp?.toLongOrNull() ?: 0)
+        datetime = DateFormat.format("dd/MM/yyyy hh:mm aa", cal).toString()
+
+        holder.mTvMessage.text = message
+        holder.mTvTimestamp.text = datetime
 
         try {
-            Picasso.get().load(imageUrl).into(holder.hIvProfile)
+            Log.d(TAG, "Error when load a image to activity")
+            Picasso.get().load(imageUrl).into(holder.mIvProfile)
         } catch (e: Exception) {
-
+            Log.d(TAG, "Error when load a image to activity")
         }
 
-        if (position == dataset.size-1) {
+        if (position == dataset.size - 1) {
             if (dataset[position].isSeen) {
-                holder.hTvConfirmDelivered.text = "Seen"
+                holder.mTvConfirmDelivered.text = "Seen"
             } else {
-                holder.hTvConfirmDelivered.text = "Delivered"
+                holder.mTvConfirmDelivered.text = "Delivered"
             }
         } else {
-            holder.hTvConfirmDelivered.visibility = View.GONE
+            holder.mTvConfirmDelivered.visibility = View.GONE
         }
     }
 

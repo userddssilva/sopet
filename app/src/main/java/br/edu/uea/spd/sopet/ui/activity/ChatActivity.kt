@@ -1,7 +1,12 @@
 package br.edu.uea.spd.sopet.ui.activity
 
+import android.annotation.SuppressLint
 import android.os.Bundle
+import android.text.Editable
 import android.text.TextUtils
+import android.text.TextWatcher
+import android.text.format.DateFormat
+import android.util.Log
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
@@ -13,9 +18,12 @@ import br.edu.uea.spd.sopet.data.model.Chat
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 import com.squareup.picasso.Picasso
+import java.util.*
+import kotlin.collections.HashMap
 
 class ChatActivity : AppCompatActivity() {
 
+    private val TAG: String? = ChatActivity::class.java.canonicalName
     private lateinit var toolbar: Toolbar
     private lateinit var recyclerView: RecyclerView
     private lateinit var ivProfile: ImageView
@@ -26,10 +34,10 @@ class ChatActivity : AppCompatActivity() {
 
     // Firebase
     private lateinit var firebaseAuth: FirebaseAuth
-    private lateinit var userUidReceiver: String
     private lateinit var firebaseDatabase: FirebaseDatabase
-    private lateinit var hisUid: DatabaseReference
+    private lateinit var databaseReference: DatabaseReference
 
+    private lateinit var hisUid: String
     private lateinit var hisImage: String
     private lateinit var myUid: String
 
@@ -38,44 +46,122 @@ class ChatActivity : AppCompatActivity() {
     private lateinit var userRefForSeen: DatabaseReference
 
     private lateinit var chatList: ArrayList<Chat>
-    private lateinit var adapter: ChatAdapter
+    private lateinit var adapterChat: ChatAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_chat)
-
-        toolbar = findViewById(R.id.toolbar_chat)
-//        setSupportActionBar(toolbar)
         title = ""
+
+        // View elements
+        toolbar = findViewById(R.id.toolbar_chat)
         recyclerView = findViewById(R.id.rc_chat)
         ivProfile = findViewById(R.id.iv_profile)
         tvUserName = findViewById(R.id.tv_user_name)
-        tvUserStatus = findViewById(R.id.iv_user_status)
+        tvUserStatus = findViewById(R.id.tv_user_status)
         etMessage = findViewById(R.id.et_message)
         ibtnSend = findViewById(R.id.ibtn_send)
 
+        // firebase
         firebaseAuth = FirebaseAuth.getInstance()
-
-        userUidReceiver = intent.getStringExtra("userID").toString()
-
         firebaseDatabase = FirebaseDatabase.getInstance()
-        hisUid = firebaseDatabase.getReference("Users")
+        databaseReference = firebaseDatabase.getReference("Users")
 
+        // Users
+        hisUid = intent.getStringExtra("userID").toString()
         myUid = firebaseAuth.currentUser!!.uid
 
+        // RecycleView
         val linearLayoutManager = LinearLayoutManager(this)
         linearLayoutManager.stackFromEnd = true
         recyclerView.setHasFixedSize(true)
         recyclerView.layoutManager = linearLayoutManager
-        
-        
-        val query = hisUid.orderByChild("uid").equalTo(userUidReceiver)
+
+        loadHisData()
+
+        toolbar.setNavigationOnClickListener {
+            onBackPressed()
+        }
+
+        ibtnSend.setOnClickListener {
+            val message = etMessage.text.toString()
+            if (TextUtils.isEmpty(message)) {
+                Toast.makeText(this, "Cannot send the empty message...", Toast.LENGTH_SHORT).show()
+            } else {
+                sendMessage(message)
+            }
+        }
+
+        // Check edit text change listener
+        etMessage.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                if (s?.isEmpty() == true) {
+                    checkTypingStatus("noOne")
+                } else {
+                    checkTypingStatus(hisUid)
+                }
+            }
+
+            override fun afterTextChanged(s: Editable?) {}
+
+        })
+
+        readMessages()
+
+        seenMessage()
+
+    }
+
+    override fun onStart() {
+        // Set online
+        checkOnlineStatus("Online")
+        super.onStart()
+    }
+
+    override fun onResume() {
+        // Set online
+        checkOnlineStatus("Online")
+        super.onResume()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        // Get timestamp
+        val timesTamp = System.currentTimeMillis().toString()
+
+        // Set offline with last seen timestamp
+        checkOnlineStatus(timesTamp)
+
+        checkTypingStatus("noOne")
+        userRefForSeen.removeEventListener(seenListener)
+    }
+
+    private fun loadHisData() {
+        val query = databaseReference.orderByChild("uid").equalTo(hisUid)
         query.addValueEventListener(object : ValueEventListener {
+
             override fun onDataChange(snapshot: DataSnapshot) {
                 for (ds in snapshot.children) {
-                    val name = ds.child("name").value.toString()
+
+                    val onlineStatus = ds.child("status").value.toString()
+                    val typeStatus = ds.child("type").value.toString()
                     hisImage = ds.child("image").value.toString()
-                    tvUserName.text = name
+                    tvUserName.text = ds.child("name").value.toString()
+
+                    if (typeStatus == myUid) {
+                        tvUserStatus.text = "Typing..."
+                    } else {
+                        if (onlineStatus == "Online") {
+                            tvUserStatus.text = onlineStatus
+                        } else {
+                            val cal = Calendar.getInstance(Locale.ENGLISH)
+                            cal.timeInMillis = (onlineStatus.toLongOrNull() ?: 0)
+                            val datetime = DateFormat.format("dd/MM/yyyy hh:mm aa", cal).toString()
+                            tvUserStatus.text = "Last seen at: $datetime"
+                        }
+                    }
 
                     try {
                         if (hisImage.isNotEmpty()) {
@@ -94,20 +180,6 @@ class ChatActivity : AppCompatActivity() {
             }
 
         })
-
-        ibtnSend.setOnClickListener {
-            val message = etMessage.text.toString()
-            if (TextUtils.isEmpty(message)) {
-                Toast.makeText(this, "Cannot send the empty message...", Toast.LENGTH_SHORT).show()
-            } else {
-                sendMessage(message)
-            }
-        }
-
-        readMessages()
-
-        seenMessage()
-
     }
 
     private fun seenMessage() {
@@ -116,10 +188,12 @@ class ChatActivity : AppCompatActivity() {
             override fun onDataChange(snapshot: DataSnapshot) {
                 for (ds in snapshot.children) {
                     val chat = ds.getValue(Chat::class.java)
-                    if (chat?.receiver.equals(myUid) && chat?.sender!!.equals(hisUid)) {
-                        val hasSeenHashMap = HashMap<String, Any>()
-                        hasSeenHashMap["isSeen"] = true
-                        ds.ref.updateChildren(hasSeenHashMap)
+                    chat?.let {
+                        if (chat.receiver.equals(myUid) && chat.sender.equals(hisUid)) {
+                            val hasSeenHashMap = HashMap<String, Any>()
+                            hasSeenHashMap["isSeen"] = true
+                            ds.ref.updateChildren(hasSeenHashMap)
+                        }
                     }
                 }
             }
@@ -134,19 +208,25 @@ class ChatActivity : AppCompatActivity() {
     private fun readMessages() {
         chatList = arrayListOf()
         val dbRef = FirebaseDatabase.getInstance().getReference("Chats")
-        dbRef.addValueEventListener(object : ValueEventListener{
+        dbRef.addValueEventListener(object : ValueEventListener {
+            @SuppressLint("NotifyDataSetChanged")
             override fun onDataChange(snapshot: DataSnapshot) {
                 chatList.clear()
                 for (ds in snapshot.children) {
                     val chat = ds.getValue(Chat::class.java)
-                    if ( chat?.receiver.equals(myUid) && chat?.sender!!.equals(hisUid) ||
-                            chat?.receiver!!.equals(hisUid) && chat.sender.equals(myUid)) {
-                        chatList.add(chat)
-                        adapter = ChatAdapter(chatList, hisImage)
-                        adapter.notifyDataSetChanged()
-                        recyclerView.adapter = adapter
+                    chat?.let {
+                        if (chat.receiver.equals(myUid) && chat.sender.equals(hisUid) ||
+                            chat.receiver.equals(hisUid) && chat.sender.equals(myUid)
+                        ) {
+                            chat.let { chatList.add(it) }
+                        }
+                        adapterChat = ChatAdapter(chatList, hisImage)
+                        recyclerView.adapter = adapterChat
+                        adapterChat.notifyDataSetChanged()
                     }
                 }
+
+                Log.d(TAG, "The data is changed and now this listener was called")
             }
 
             override fun onCancelled(error: DatabaseError) {
@@ -160,21 +240,28 @@ class ChatActivity : AppCompatActivity() {
         val databaseReference = FirebaseDatabase.getInstance().reference
         val hashMap = HashMap<String, Any>()
         val timeStamp = System.currentTimeMillis().toString()
-
         hashMap["sender"] = myUid
-        hashMap["receiver"] = userUidReceiver
+        hashMap["receiver"] = hisUid
         hashMap["message"] = message
         hashMap["timestamp"] = timeStamp
         hashMap["isSeen"] = false
-
         databaseReference.child("Chats").push().setValue(hashMap)
-
         etMessage.setText("")
     }
 
-    override fun onPause() {
-        super.onPause()
-        userRefForSeen.removeEventListener(seenListener)
+    private fun checkOnlineStatus(status: String) {
+        val dbRef = FirebaseDatabase.getInstance().getReference("Users").child(myUid)
+        val hasMap = HashMap<String, Any>()
+        hasMap["status"] = status
+        // Update value of online status of current user
+        dbRef.updateChildren(hasMap)
     }
 
+    private fun checkTypingStatus(typing: String) {
+        val dbRef = FirebaseDatabase.getInstance().getReference("Users").child(myUid)
+        val hasMap = HashMap<String, Any>()
+        hasMap["type"] = typing
+        // Update value of online status of current user
+        dbRef.updateChildren(hasMap)
+    }
 }

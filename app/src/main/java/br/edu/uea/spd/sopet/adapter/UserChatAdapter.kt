@@ -1,6 +1,5 @@
 package br.edu.uea.spd.sopet.adapter
 
-import android.content.Context
 import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
@@ -15,7 +14,6 @@ import com.squareup.picasso.Picasso
 import java.lang.Exception
 
 class UserChatAdapter(
-    private val context: Context,
     private val dataset: List<User>,
 //    private val listener: (User) -> Unit,
 ) : RecyclerView.Adapter<UserChatAdapter.ViewHolder>() {

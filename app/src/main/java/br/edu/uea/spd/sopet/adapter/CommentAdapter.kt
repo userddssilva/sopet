@@ -3,6 +3,7 @@ package br.edu.uea.spd.sopet.adapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
 import androidx.recyclerview.widget.RecyclerView
 import br.edu.uea.spd.sopet.R
 import br.edu.uea.spd.sopet.data.model.Comment
@@ -14,6 +15,7 @@ class CommentAdapter(
 
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 //        val profileName: TextView = view.findViewById(R.id.tv_comment_user_name)
+        val llItemsPost: LinearLayout = view.findViewById(R.id.ll_items_posts)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -26,7 +28,10 @@ class CommentAdapter(
         val item = dataset[position]
 //        Log.d("User name", item.user.userName)
 //        holder.profileName.text =  item.user.userName
-        holder.itemView.setOnClickListener { listener(item) }
+//        holder.itemView.setOnClickListener { listener(item) }
+        holder.llItemsPost.setOnClickListener {
+
+        }
     }
 
     override fun getItemCount(): Int = dataset.size

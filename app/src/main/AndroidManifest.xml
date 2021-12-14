@@ -2,15 +2,15 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="br.edu.uea.spd.sopet">
+    <uses-feature android:glEsVersion="0x00020000" android:required="true" />
     <!--
          The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
          Google Maps Android API v2, but you must specify either coarse or fine
          location permissions for the "MyLocation" functionality.
     -->
-    <uses-permission
-        android:name="android.permission.ACCESS_FINE_LOCATION"
-        tools:ignore="CoarseFineLocation" />
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
@@ -27,7 +27,7 @@
             android:parentActivityName=".ui.activity.MainActivity"
             android:screenOrientation="portrait"
             android:theme="@style/ThemeNoTitle"
-            tools:ignore="LockedOrientationActivity"  />
+            tools:ignore="LockedOrientationActivity" />
         <activity
             android:name=".ui.activity.PublishActivity"
             android:exported="false"

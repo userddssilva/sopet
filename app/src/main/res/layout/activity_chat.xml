@@ -3,7 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FFF3F3"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/bg_chat_list"
     tools:context=".ui.activity.ChatActivity">
 
     <androidx.appcompat.widget.Toolbar
@@ -11,7 +12,8 @@
         android:layout_width="match_parent"
         android:layout_height="?android:attr/actionBarSize"
         android:background="@color/purple_500"
-        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:navigationIcon="?attr/homeAsUpIndicator">
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/iv_profile"
@@ -23,7 +25,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginStart="20dp"
+            android:layout_marginStart="30dp"
             android:orientation="vertical">
 
             <TextView
@@ -36,7 +38,7 @@
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/iv_user_status"
+                android:id="@+id/tv_user_status"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/online"
@@ -49,14 +51,19 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rc_chat"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/toolbar_chat" />
+        android:layout_height="match_parent"
+        android:layout_below="@+id/toolbar_chat"
+        android:layout_marginBottom="68dp"
+        tools:listitem="@layout/item_chat_left"/>
 
     <LinearLayout
+        android:layout_marginStart="10dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginEnd="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:background="@color/white"
+        android:background="@drawable/bg_input_message"
         android:gravity="center"
         android:orientation="horizontal">
 
@@ -68,15 +75,19 @@
             android:background="@null"
             android:hint="@string/start_typing"
             android:inputType="textCapSentences|textMultiLine"
-            android:padding="15dp" />
+            android:padding="15dp"
+            tools:ignore="Autofill" />
 
         <ImageButton
             android:id="@+id/ibtn_send"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:background="@null"
+            android:layout_gravity="bottom"
+            android:layout_marginBottom="8dp"
+            android:background="@drawable/bg_send_ivchat"
             android:src="@drawable/ic_baseline_send_24"
-            tools:ignore="ContentDescription" />
+            tools:ignore="ContentDescription"
+            />
 
     </LinearLayout>
 </RelativeLayout>

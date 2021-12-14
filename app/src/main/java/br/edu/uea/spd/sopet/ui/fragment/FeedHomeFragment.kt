@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import br.edu.uea.spd.sopet.ui.activity.PostDetailsActivity
 import br.edu.uea.spd.sopet.R
 import br.edu.uea.spd.sopet.adapter.PetAdapter
-import br.edu.uea.spd.sopet.data.model.Datasource
+import br.edu.uea.spd.sopet.data.Datasource
 import br.edu.uea.spd.sopet.data.model.Pet
 
 class FeedHomeFragment : Fragment() {

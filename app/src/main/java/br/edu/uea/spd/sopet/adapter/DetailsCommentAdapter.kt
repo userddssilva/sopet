@@ -3,6 +3,7 @@ package br.edu.uea.spd.sopet.adapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
 import androidx.recyclerview.widget.RecyclerView
 import br.edu.uea.spd.sopet.R
 import br.edu.uea.spd.sopet.adapter.DetailsCommentAdapter.ViewHolder
@@ -15,7 +16,7 @@ class DetailsCommentAdapter(
 ) : RecyclerView.Adapter<ViewHolder>() {
 
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-
+        val mllItemsPost: LinearLayout = view.findViewById(R.id.ll_items_posts)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {

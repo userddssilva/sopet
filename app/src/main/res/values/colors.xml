@@ -12,4 +12,5 @@
     <color name="white">#FFFFFFFF</color>
     <color name="gray_button">#464646</color>
     <color name="divider_color">#E4E1E1</color>
+    <color name="bg_chat_list">#F3F3FB</color>
 </resources>
