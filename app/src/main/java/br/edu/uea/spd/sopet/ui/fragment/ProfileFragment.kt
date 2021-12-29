@@ -32,9 +32,9 @@ class ProfileFragment : Fragment() {
     companion object {
         // Permissions Constants
         const val CAMERA_REQUEST_CODE = 100
-        const val STORAGE_REQUEST_CODE = 100
-        const val IMAGE_PICK_CAMERA_CODE = 100
-        const val IMAGE_PICK_GALLERY_CODE = 100
+        const val STORAGE_REQUEST_CODE = 200
+        const val IMAGE_PICK_CAMERA_CODE = 300
+        const val IMAGE_PICK_GALLERY_CODE = 400
     }
 
     // Arrays of permissions to be requested
@@ -255,7 +255,6 @@ class ProfileFragment : Fragment() {
 
         builder.create().show()
     }
-
 
     private fun showImagePicDialog() {
         val options = arrayOf("Camera", "Gallery")

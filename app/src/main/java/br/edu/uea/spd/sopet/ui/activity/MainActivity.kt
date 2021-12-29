@@ -11,7 +11,7 @@ class MainActivity : AppCompatActivity() {
 
     private val chatListFragment = ChatListFragment()
     private val mapsFragment = PlacesFragment()
-    private val publishFragment = PublishFragment()
+    private val publishFragment = PostFragment()
     private val profileFragment = ProfileFragment()
     private val homeFragment = FeedHomeFragment()
 

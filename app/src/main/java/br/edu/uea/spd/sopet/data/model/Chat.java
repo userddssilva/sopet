@@ -64,14 +64,4 @@ public class Chat {
     public void setIsSeen(boolean isSeen) {
         this.isSeen = isSeen;
     }
-    @Exclude
-    public Map<String, Object> toMap() {
-        HashMap<String, Object> result = new HashMap<>();
-        result.put("isSeen", isSeen);
-        result.put("message", message);
-        result.put("receiver", receiver);
-        result.put("sender", sender);
-        result.put("timestamp", timestamp);
-        return result;
-    }
 }

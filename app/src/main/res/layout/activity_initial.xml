@@ -20,7 +20,7 @@
         <ImageView
             android:layout_width="124dp"
             android:layout_height="124dp"
-            android:src="@drawable/ic_baseline_wite_pets_24"
+            android:src="@drawable/ic_baseline_white_pets_24"
             android:contentDescription="@string/description_start_pet_icon" />
 
     </LinearLayout>
