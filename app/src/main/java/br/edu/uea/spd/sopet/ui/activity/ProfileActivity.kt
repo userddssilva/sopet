@@ -105,18 +105,28 @@ class ProfileActivity : AppCompatActivity() {
                     tvPhone.text = phone
 
                     try {
-                        // If image is received then set
-                        Picasso.get().load(image).into(ivAvatar)
+                        if (image.isNotEmpty()) {
+                            Picasso.get().load(image)
+                                .placeholder(R.drawable.ic_default_img_while).into(ivAvatar)
+                        }
                     } catch (e: Exception) {
-                        // If there is any exception while getting image then set default
                         Picasso.get().load(R.drawable.ic_default_img_while).into(ivAvatar)
+
                     }
-                    try {
-                        // If image is received then set
-                        Picasso.get().load(cover).into(ivCover)
-                    } catch (e: Exception) {
-                        // If there is any exception while getting image then set default
-                    }
+
+//                    try {
+//                        // If image is received then set
+//                        Picasso.get().load(image).into(ivAvatar)
+//                    } catch (e: Exception) {
+//                        // If there is any exception while getting image then set default
+//                        Picasso.get().load(R.drawable.ic_default_img_while).into(ivAvatar)
+//                    }
+//                    try {
+//                        // If image is received then set
+//                        Picasso.get().load(cover).into(ivCover)
+//                    } catch (e: Exception) {
+//                        // If there is any exception while getting image then set default
+//                    }
                 }
             }
 
