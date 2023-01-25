@@ -1,7 +1,9 @@
 package br.edu.uea.spd.sopet.ui.activity
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.os.Bundle
+import android.os.Debug
 import android.text.Editable
 import android.text.TextUtils
 import android.text.TextWatcher
@@ -82,6 +84,7 @@ class ChatActivity : AppCompatActivity() {
         toolbar.setNavigationOnClickListener {
             onBackPressed()
         }
+
 
         ibtnSend.setOnClickListener {
             val message = etMessage.text.toString()

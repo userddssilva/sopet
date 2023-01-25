@@ -1,7 +1,8 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:theme="@style/Theme.Sopet"
     android:layout_height="match_parent">
 
     <ScrollView
@@ -16,7 +17,7 @@
                 android:id="@+id/iv_cover"
                 android:layout_width="match_parent"
                 android:layout_height="180dp"
-                android:background="@color/purple_700"
+                android:background="@color/teal_700"
                 tools:ignore="ContentDescription" />
 
             <LinearLayout
@@ -25,15 +26,15 @@
                 android:layout_marginTop="100dp"
                 android:orientation="horizontal">
 
-                <ImageView
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:layout_marginStart="30dp"
                     android:id="@+id/iv_avatar"
                     android:layout_width="120dp"
                     android:layout_height="120dp"
-                    android:layout_marginStart="20dp"
-                    android:background="@color/purple_500"
-                    android:src="@drawable/ic_default_img_while"
                     android:padding="5dp"
-                    tools:ignore="ContentDescription" />
+                    android:layout_marginEnd="10dp"
+                    android:background="@color/teal_200"
+                    android:src="@drawable/ic_default_img_while" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -73,16 +74,13 @@
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab_edit"
-        style="@style/Widget.MaterialComponents.Button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
         android:layout_margin="16dp"
-        android:backgroundTint="@color/purple_500"
+        android:backgroundTint="@color/teal_700"
         android:src="@drawable/ic_baseline_edit_24"
-        android:tint="@color/white"
-        app:srcCompat="@android:drawable/ic_input_add"
         app:tint="@color/white"
         tools:ignore="ContentDescription" />
 </RelativeLayout>

@@ -26,7 +26,7 @@ class InitialActivity : AppCompatActivity() {
         val currentUser = auth.currentUser
         if (currentUser != null) {
             Log.d(LOGIN_TAG_DEBUG, "createUserWithEmail:isLogged")
-            startActivity(Intent(this, MainActivity::class.java))
+            startActivity(Intent(this, ChatListActivity::class.java))
             finish()
         } else {
             Log.d(LOGIN_TAG_DEBUG, "createUserWithEmail:isNotLogin")

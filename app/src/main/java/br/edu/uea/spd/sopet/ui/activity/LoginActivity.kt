@@ -193,7 +193,7 @@ class LoginActivity : AppCompatActivity() {
                     persistenceUserDataFirebase()
                     // Sign in success, update UI with the signed-in user's information
                     Log.d(LOGIN_TAG_DEBUG, "createUserWithEmail:success")
-                    startActivity(Intent(this, MainActivity::class.java))
+                    startActivity(Intent(this, ChatListActivity::class.java))
                     finish()
                 } else {
                     // If sign in fails, display a message to the user.
@@ -216,7 +216,7 @@ class LoginActivity : AppCompatActivity() {
                 if (task.isSuccessful) {
                     // Sign in success, update UI with the signed-in user's information
                     Log.d(LOGIN_TAG_DEBUG, "signInWithEmail:success")
-                    startActivity(Intent(this, MainActivity::class.java))
+                    startActivity(Intent(this, ChatListActivity::class.java))
                     finish()
                 } else {
                     // If sign in fails, display a message to the user.
@@ -261,7 +261,7 @@ class LoginActivity : AppCompatActivity() {
                     getShowInfoFromGoogle(task)
                     // Sign in success, update UI with the signed-in user's information
                     Log.d("Login Google", "signInWithCredential:success")
-                    startActivity(Intent(this, MainActivity::class.java))
+                    startActivity(Intent(this, ChatListActivity::class.java))
                     finish()
                 } else {
                     // If sign in fails, display a message to the user.
