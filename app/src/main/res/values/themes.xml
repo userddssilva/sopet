@@ -14,8 +14,10 @@
         <!-- Customize your theme here. -->
     </style>
 
-    <style name="ThemeNoTitle" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+    <style name="ThemeNoTitle" parent="Theme.Sopet">
         <item name="android:windowNoTitle">true</item>
+        <item name="windowNoTitle">true</item>
+        <item name="windowActionBar">false</item>
     </style>
 
     <style name="Theme.Sopet.NoActionBar">
