@@ -1,14 +1,14 @@
 package br.edu.uea.spd.sopet.ui.activity
 
 import android.annotation.SuppressLint
-import android.content.Intent
+import android.opengl.Visibility
 import android.os.Bundle
-import android.os.Debug
 import android.text.Editable
 import android.text.TextUtils
 import android.text.TextWatcher
 import android.text.format.DateFormat
 import android.util.Log
+import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
@@ -21,7 +21,6 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 import com.squareup.picasso.Picasso
 import java.util.*
-import kotlin.collections.HashMap
 
 class ChatActivity : AppCompatActivity() {
 
@@ -95,6 +94,53 @@ class ChatActivity : AppCompatActivity() {
             }
         }
 
+        val tvEmoji1 = findViewById<TextView>(R.id.tv_emoji_1);
+        val tvEmoji2 = findViewById<TextView>(R.id.tv_emoji_2);
+        val tvEmoji3 = findViewById<TextView>(R.id.tv_emoji_3);
+        val tvEmoji4 = findViewById<TextView>(R.id.tv_emoji_4);
+        val tvEmoji5 = findViewById<TextView>(R.id.tv_emoji_5);
+        val tvEmoji6 = findViewById<TextView>(R.id.tv_emoji_6);
+
+        tvEmoji1.text = "\u2764\ufe0f"
+        tvEmoji2.text = "\ud83d\ude0d"
+        tvEmoji3.text = "\ud83d\udd25"
+        tvEmoji4.text = "\ud83d\ude02"
+        tvEmoji5.text = "\ud83d\ude2d"
+        tvEmoji6.text = "\uD83D\uDCA3"
+
+        tvEmoji1.setOnClickListener {
+//            sendMessage(tvEmoji1.text.toString())
+            etMessage.setText(etMessage.text.toString() + " " + tvEmoji1.text.toString())
+        }
+
+        tvEmoji2.setOnClickListener {
+//            sendMessage(tvEmoji2.text.toString())
+            etMessage.setText(etMessage.text.toString() + " " + tvEmoji2.text.toString())
+        }
+
+        tvEmoji3.setOnClickListener {
+//            sendMessage(tvEmoji3.text.toString())
+            etMessage.setText(etMessage.text.toString() + " " + tvEmoji3.text.toString())
+        }
+
+        tvEmoji4.setOnClickListener {
+//            sendMessage(tvEmoji4.text.toString())
+            etMessage.setText(etMessage.text.toString() + " " + tvEmoji4.text.toString())
+        }
+
+        tvEmoji5.setOnClickListener {
+//            sendMessage(tvEmoji5.text.toString())
+            etMessage.setText(etMessage.text.toString() + " " + tvEmoji5.text.toString())
+        }
+
+        tvEmoji6.setOnClickListener {
+//            sendMessage(tvEmoji6.text.toString())
+            etMessage.setText(etMessage.text.toString() + " " + tvEmoji6.text.toString())
+        }
+
+        val llEmojisRecommended = findViewById<LinearLayout>(R.id.ll_emojis_recommended)
+
+
         // Check edit text change listener
         etMessage.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
@@ -102,8 +148,11 @@ class ChatActivity : AppCompatActivity() {
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 if (s?.isEmpty() == true) {
                     checkTypingStatus("noOne")
+                    llEmojisRecommended.visibility = View.GONE
+
                 } else {
                     checkTypingStatus(hisUid)
+                    llEmojisRecommended.visibility = View.VISIBLE
                 }
             }
 
@@ -218,8 +267,9 @@ class ChatActivity : AppCompatActivity() {
                 for (ds in snapshot.children) {
                     val chat = ds.getValue(Chat::class.java)
                     chat?.let {
-                        if (chat.receiver.equals(myUid) && chat.sender.equals(hisUid) ||
-                            chat.receiver.equals(hisUid) && chat.sender.equals(myUid)
+                        if (chat.receiver.equals(myUid) && chat.sender.equals(hisUid) || chat.receiver.equals(
+                                hisUid
+                            ) && chat.sender.equals(myUid)
                         ) {
                             chat.let { chatList.add(it) }
                         }
