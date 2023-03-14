@@ -1,6 +1,7 @@
 {
   "project_info": {
     "project_number": "951967560392",
+    "firebase_url": "https://sopet-app-default-rtdb.firebaseio.com",
     "project_id": "sopet-app",
     "storage_bucket": "sopet-app.appspot.com"
   },
@@ -14,11 +15,11 @@
       },
       "oauth_client": [
         {
-          "client_id": "951967560392-651403mgombheggoq9jdbj5po0a3n7kn.apps.googleusercontent.com",
+          "client_id": "951967560392-1stv280a0tdgq1k7h18virqsjtm0ju55.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "br.edu.uea.spd.sopet",
-            "certificate_hash": "f855d882615cb38c136ce0925b898010c2a6fc6d"
+            "certificate_hash": "6abd7cda1ea8b630e26ec6798c4131e1d13e3903"
           }
         },
         {
