@@ -111,31 +111,37 @@ class ChatActivity : AppCompatActivity() {
         tvEmoji1.setOnClickListener {
 //            sendMessage(tvEmoji1.text.toString())
             etMessage.setText(etMessage.text.toString() + " " + tvEmoji1.text.toString())
+            etMessage.setSelection(etMessage.text.length)
         }
 
         tvEmoji2.setOnClickListener {
 //            sendMessage(tvEmoji2.text.toString())
             etMessage.setText(etMessage.text.toString() + " " + tvEmoji2.text.toString())
+            etMessage.setSelection(etMessage.text.length)
         }
 
         tvEmoji3.setOnClickListener {
 //            sendMessage(tvEmoji3.text.toString())
             etMessage.setText(etMessage.text.toString() + " " + tvEmoji3.text.toString())
+            etMessage.setSelection(etMessage.text.length)
         }
 
         tvEmoji4.setOnClickListener {
 //            sendMessage(tvEmoji4.text.toString())
             etMessage.setText(etMessage.text.toString() + " " + tvEmoji4.text.toString())
+            etMessage.setSelection(etMessage.text.length)
         }
 
         tvEmoji5.setOnClickListener {
 //            sendMessage(tvEmoji5.text.toString())
             etMessage.setText(etMessage.text.toString() + " " + tvEmoji5.text.toString())
+            etMessage.setSelection(etMessage.text.length)
         }
 
         tvEmoji6.setOnClickListener {
 //            sendMessage(tvEmoji6.text.toString())
             etMessage.setText(etMessage.text.toString() + " " + tvEmoji6.text.toString())
+            etMessage.setSelection(etMessage.text.length)
         }
 
         val llEmojisRecommended = findViewById<LinearLayout>(R.id.ll_emojis_recommended)
