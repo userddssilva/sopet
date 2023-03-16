@@ -1,7 +1,6 @@
 package br.edu.uea.spd.sopet.ui.activity
 
 import android.annotation.SuppressLint
-import android.opengl.Visibility
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextUtils
@@ -24,7 +23,10 @@ import java.util.*
 
 class ChatActivity : AppCompatActivity() {
 
-    private val TAG: String? = ChatActivity::class.java.canonicalName
+    companion object {
+        private val TAG: String? = ChatActivity::class.java.canonicalName
+    }
+
     private lateinit var toolbar: Toolbar
     private lateinit var recyclerView: RecyclerView
     private lateinit var ivProfile: ImageView
@@ -49,41 +51,33 @@ class ChatActivity : AppCompatActivity() {
     private lateinit var chatList: ArrayList<Chat>
     private lateinit var adapterChat: ChatAdapter
 
+    // Emojis
+    private lateinit var tvEmoji1: TextView
+    private lateinit var tvEmoji2: TextView
+    private lateinit var tvEmoji3: TextView
+    private lateinit var tvEmoji4: TextView
+    private lateinit var tvEmoji5: TextView
+    private lateinit var tvEmoji6: TextView
+
+    private lateinit var llEmojisRecommended: LinearLayout
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_chat)
         title = ""
 
-        // View elements
-        toolbar = findViewById(R.id.toolbar_chat)
-        recyclerView = findViewById(R.id.rc_chat)
-        ivProfile = findViewById(R.id.iv_profile)
-        tvUserName = findViewById(R.id.tv_user_name)
-        tvUserStatus = findViewById(R.id.tv_user_status)
-        etMessage = findViewById(R.id.et_message)
-        ibtnSend = findViewById(R.id.ibtn_send)
+        // init UI Views
+        initViewElements()
 
-        // firebase
-        firebaseAuth = FirebaseAuth.getInstance()
-        firebaseDatabase = FirebaseDatabase.getInstance()
-        databaseReference = firebaseDatabase.getReference("Users")
+        // init general variables
+        initFirebaseVariables()
 
-        // Users
-        hisUid = intent.getStringExtra("userID").toString()
-        myUid = firebaseAuth.currentUser!!.uid
-
-        // RecycleView
-        val linearLayoutManager = LinearLayoutManager(this)
-        linearLayoutManager.stackFromEnd = true
-        recyclerView.setHasFixedSize(true)
-        recyclerView.layoutManager = linearLayoutManager
-
-        loadHisData()
+        // Listening emoji clicks
+        emojisClickListeners()
 
         toolbar.setNavigationOnClickListener {
             onBackPressed()
         }
-
 
         ibtnSend.setOnClickListener {
             val message = etMessage.text.toString()
@@ -93,59 +87,6 @@ class ChatActivity : AppCompatActivity() {
                 sendMessage(message)
             }
         }
-
-        val tvEmoji1 = findViewById<TextView>(R.id.tv_emoji_1);
-        val tvEmoji2 = findViewById<TextView>(R.id.tv_emoji_2);
-        val tvEmoji3 = findViewById<TextView>(R.id.tv_emoji_3);
-        val tvEmoji4 = findViewById<TextView>(R.id.tv_emoji_4);
-        val tvEmoji5 = findViewById<TextView>(R.id.tv_emoji_5);
-        val tvEmoji6 = findViewById<TextView>(R.id.tv_emoji_6);
-
-        tvEmoji1.text = "\u2764\ufe0f"
-        tvEmoji2.text = "\ud83d\ude0d"
-        tvEmoji3.text = "\ud83d\udd25"
-        tvEmoji4.text = "\ud83d\ude02"
-        tvEmoji5.text = "\ud83d\ude2d"
-        tvEmoji6.text = "\uD83D\uDCA3"
-
-        tvEmoji1.setOnClickListener {
-//            sendMessage(tvEmoji1.text.toString())
-            etMessage.setText(etMessage.text.toString() + " " + tvEmoji1.text.toString())
-            etMessage.setSelection(etMessage.text.length)
-        }
-
-        tvEmoji2.setOnClickListener {
-//            sendMessage(tvEmoji2.text.toString())
-            etMessage.setText(etMessage.text.toString() + " " + tvEmoji2.text.toString())
-            etMessage.setSelection(etMessage.text.length)
-        }
-
-        tvEmoji3.setOnClickListener {
-//            sendMessage(tvEmoji3.text.toString())
-            etMessage.setText(etMessage.text.toString() + " " + tvEmoji3.text.toString())
-            etMessage.setSelection(etMessage.text.length)
-        }
-
-        tvEmoji4.setOnClickListener {
-//            sendMessage(tvEmoji4.text.toString())
-            etMessage.setText(etMessage.text.toString() + " " + tvEmoji4.text.toString())
-            etMessage.setSelection(etMessage.text.length)
-        }
-
-        tvEmoji5.setOnClickListener {
-//            sendMessage(tvEmoji5.text.toString())
-            etMessage.setText(etMessage.text.toString() + " " + tvEmoji5.text.toString())
-            etMessage.setSelection(etMessage.text.length)
-        }
-
-        tvEmoji6.setOnClickListener {
-//            sendMessage(tvEmoji6.text.toString())
-            etMessage.setText(etMessage.text.toString() + " " + tvEmoji6.text.toString())
-            etMessage.setSelection(etMessage.text.length)
-        }
-
-        val llEmojisRecommended = findViewById<LinearLayout>(R.id.ll_emojis_recommended)
-
 
         // Check edit text change listener
         etMessage.addTextChangedListener(object : TextWatcher {
@@ -194,6 +135,87 @@ class ChatActivity : AppCompatActivity() {
 
         checkTypingStatus("noOne")
         userRefForSeen.removeEventListener(seenListener)
+    }
+
+    private fun initViewElements() {
+        // View elements
+        toolbar = findViewById(R.id.toolbar_chat)
+        recyclerView = findViewById(R.id.rc_chat)
+        ivProfile = findViewById(R.id.iv_profile)
+        tvUserName = findViewById(R.id.tv_user_name)
+        tvUserStatus = findViewById(R.id.tv_user_status)
+        etMessage = findViewById(R.id.et_message)
+        ibtnSend = findViewById(R.id.ibtn_send)
+
+        // RecycleView
+        val linearLayoutManager = LinearLayoutManager(this)
+        linearLayoutManager.stackFromEnd = true
+        recyclerView.setHasFixedSize(true)
+        recyclerView.layoutManager = linearLayoutManager
+
+        // Emojis
+        tvEmoji1 = findViewById(R.id.tv_emoji_1)
+        tvEmoji2 = findViewById(R.id.tv_emoji_2)
+        tvEmoji3 = findViewById(R.id.tv_emoji_3)
+        tvEmoji4 = findViewById(R.id.tv_emoji_4)
+        tvEmoji5 = findViewById(R.id.tv_emoji_5)
+        tvEmoji6 = findViewById(R.id.tv_emoji_6)
+
+        tvEmoji1.text = "\u2764\ufe0f"
+        tvEmoji2.text = "\ud83d\ude0d"
+        tvEmoji3.text = "\ud83d\udd25"
+        tvEmoji4.text = "\ud83d\ude02"
+        tvEmoji5.text = "\ud83d\ude2d"
+        tvEmoji6.text = "\uD83D\uDCA3"
+
+        llEmojisRecommended = findViewById(R.id.ll_emojis_recommended)
+        llEmojisRecommended.visibility = View.GONE
+
+    }
+
+    private fun initFirebaseVariables() {
+        // firebase
+        firebaseAuth = FirebaseAuth.getInstance()
+        firebaseDatabase = FirebaseDatabase.getInstance()
+        databaseReference = firebaseDatabase.getReference("Users")
+
+        // Users
+        hisUid = intent.getStringExtra("userID").toString()
+        myUid = firebaseAuth.currentUser!!.uid
+
+        loadHisData()
+    }
+
+    private fun emojisClickListeners() {
+        tvEmoji1.setOnClickListener {
+            etMessage.setText(etMessage.text.toString() + " " + tvEmoji1.text.toString())
+            etMessage.setSelection(etMessage.text.length)
+        }
+
+        tvEmoji2.setOnClickListener {
+            etMessage.setText(etMessage.text.toString() + " " + tvEmoji2.text.toString())
+            etMessage.setSelection(etMessage.text.length)
+        }
+
+        tvEmoji3.setOnClickListener {
+            etMessage.setText(etMessage.text.toString() + " " + tvEmoji3.text.toString())
+            etMessage.setSelection(etMessage.text.length)
+        }
+
+        tvEmoji4.setOnClickListener {
+            etMessage.setText(etMessage.text.toString() + " " + tvEmoji4.text.toString())
+            etMessage.setSelection(etMessage.text.length)
+        }
+
+        tvEmoji5.setOnClickListener {
+            etMessage.setText(etMessage.text.toString() + " " + tvEmoji5.text.toString())
+            etMessage.setSelection(etMessage.text.length)
+        }
+
+        tvEmoji6.setOnClickListener {
+            etMessage.setText(etMessage.text.toString() + " " + tvEmoji6.text.toString())
+            etMessage.setSelection(etMessage.text.length)
+        }
     }
 
     private fun loadHisData() {
