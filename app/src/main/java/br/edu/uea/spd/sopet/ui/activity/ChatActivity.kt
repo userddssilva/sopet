@@ -16,9 +16,16 @@ import androidx.recyclerview.widget.RecyclerView
 import br.edu.uea.spd.sopet.R
 import br.edu.uea.spd.sopet.adapter.ChatAdapter
 import br.edu.uea.spd.sopet.data.model.Chat
+import br.edu.uea.spd.sopet.service.Emoji
+import br.edu.uea.spd.sopet.service.EmojiApiService
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 import com.squareup.picasso.Picasso
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
 import java.util.*
 
 class ChatActivity : AppCompatActivity() {
@@ -74,6 +81,30 @@ class ChatActivity : AppCompatActivity() {
 
         // Listening emoji clicks
         emojisClickListeners()
+
+
+        val retrofit = Retrofit.Builder()
+            .baseUrl("https://emoji-api.com/")
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+
+        val myApiService = retrofit.create(EmojiApiService::class.java)
+
+        myApiService.getEmoji(
+            "globe-showing-europe-africa",
+            "9acdc8b6eb82a14595c8727faf884307f852a50f"
+        ).enqueue(object : Callback<List<Emoji>> {
+            override fun onResponse(call: Call<List<Emoji>>, response: Response<List<Emoji>>) {
+                val data = response.body()
+                tvEmoji1.text = data?.get(0)?.character
+                Log.d(TAG, data.toString())
+            }
+
+            override fun onFailure(call: Call<List<Emoji>>, t: Throwable) {
+                Log.d(TAG, t.stackTraceToString())
+            }
+        })
+
 
         toolbar.setNavigationOnClickListener {
             onBackPressed()
@@ -169,7 +200,7 @@ class ChatActivity : AppCompatActivity() {
         tvEmoji6.text = "\uD83D\uDCA3"
 
         llEmojisRecommended = findViewById(R.id.ll_emojis_recommended)
-        llEmojisRecommended.visibility = View.GONE
+//        llEmojisRecommended.visibility = View.GONE
 
     }
 
