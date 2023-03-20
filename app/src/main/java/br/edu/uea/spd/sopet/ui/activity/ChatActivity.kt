@@ -19,8 +19,10 @@ import br.edu.uea.spd.sopet.data.model.Chat
 import br.edu.uea.spd.sopet.service.EmojiApiConnection
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
+import com.sergivonavi.materialbanner.Banner
 import com.squareup.picasso.Picasso
 import java.util.*
+
 
 class ChatActivity : AppCompatActivity() {
 
@@ -112,6 +114,16 @@ class ChatActivity : AppCompatActivity() {
 
         })
 
+        val banner = findViewById<Banner>(R.id.banner)
+
+        banner.setMessage("Fala gallera")
+
+        banner.setRightButtonListener {
+//            banner.show()
+            banner.dismiss()
+        }
+
+
         readMessages()
 
         seenMessage()
@@ -174,7 +186,7 @@ class ChatActivity : AppCompatActivity() {
         tvEmoji6.text = "\uD83D\uDCA3"
 
         llEmojisRecommended = findViewById(R.id.ll_emojis_recommended)
-//        llEmojisRecommended.visibility = View.GONE
+        llEmojisRecommended.visibility = View.GONE
 
     }
 
