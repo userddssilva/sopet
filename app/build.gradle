@@ -69,6 +69,7 @@ dependencies {
 
     // Image
     implementation 'com.squareup.picasso:picasso:2.71828'
+    implementation 'com.google.android.gms:play-services-location:21.0.1'
 
     // Test
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'

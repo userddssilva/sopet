@@ -1,6 +1,9 @@
 package br.edu.uea.spd.sopet.ui.activity
 
+import android.Manifest
 import android.annotation.SuppressLint
+import android.content.pm.PackageManager
+import android.location.Location
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextUtils
@@ -11,12 +14,16 @@ import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import br.edu.uea.spd.sopet.R
 import br.edu.uea.spd.sopet.adapter.ChatAdapter
 import br.edu.uea.spd.sopet.data.model.Chat
 import br.edu.uea.spd.sopet.service.EmojiApiConnection
+import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationServices
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 import com.sergivonavi.materialbanner.Banner
@@ -28,6 +35,7 @@ class ChatActivity : AppCompatActivity() {
 
     companion object {
         private val TAG: String? = ChatActivity::class.java.canonicalName
+        private const val LOCATION_PERMISSION_REQUEST_CODE = 1
     }
 
     private lateinit var toolbar: Toolbar
@@ -64,6 +72,12 @@ class ChatActivity : AppCompatActivity() {
 
     private lateinit var llEmojisRecommended: LinearLayout
 
+    // location request
+    private lateinit var fusedLocationClient: FusedLocationProviderClient
+
+    private var longitude: Double = 0.0
+    private var latitude: Double = 0.0
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_chat)
@@ -93,6 +107,67 @@ class ChatActivity : AppCompatActivity() {
 
         seenMessage()
 
+    }
+
+    private fun requestLocationPermission() {
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
+            == PackageManager.PERMISSION_GRANTED
+        ) {
+            // Permission already granted, proceed with using the location
+            // ...
+            getUserLocation()
+        } else {
+            // Permission not yet granted, request it from the user
+            ActivityCompat.requestPermissions(
+                this,
+                arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
+                LOCATION_PERMISSION_REQUEST_CODE
+            )
+        }
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<String>,
+        grantResults: IntArray
+    ) {
+        if (requestCode == LOCATION_PERMISSION_REQUEST_CODE) {
+            if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                // Permission granted, proceed with using the location
+                // ...
+                getUserLocation()
+
+            } else {
+                // Permission denied, handle the error
+                // ...
+                requestLocationPermission()
+            }
+        } else {
+            super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        }
+    }
+
+    private fun getUserLocation() {
+        if (ContextCompat.checkSelfPermission(
+                this,
+                Manifest.permission.ACCESS_FINE_LOCATION
+            ) == PackageManager.PERMISSION_GRANTED
+        ) {
+            fusedLocationClient.lastLocation
+                .addOnSuccessListener { location: Location? ->
+                    // Got last known location. In some rare situations this can be null.
+                    if (location != null) {
+                        // Use the location
+                        latitude = location.latitude
+                        longitude = location.longitude
+                        // ...
+                        Log.d(TAG, "Location - LAT: $latitude LONG: $longitude")
+                    }
+                }
+        } else {
+            // Permission denied, handle the error
+            // ...
+        }
     }
 
     private fun createBannerSuggestion() {
@@ -153,6 +228,12 @@ class ChatActivity : AppCompatActivity() {
         // Set online
         checkOnlineStatus("Online")
         super.onResume()
+
+        // Create an instance of the FusedLocationProviderClient
+        fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
+
+        // Check if the app has permission to access the device's location
+        requestLocationPermission()
     }
 
     override fun onPause() {
