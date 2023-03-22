@@ -23,7 +23,6 @@ import com.sergivonavi.materialbanner.Banner
 import com.squareup.picasso.Picasso
 import java.util.*
 
-
 class ChatActivity : AppCompatActivity() {
 
     companion object {
@@ -78,14 +77,41 @@ class ChatActivity : AppCompatActivity() {
         // Listening emoji clicks
         emojisClickListeners()
 
-
         EmojiApiConnection.setEmoji(tvEmoji2)
 
+        backOnClickBackButton()
 
+        sendMessage()
+
+        // Check edit text change listener
+        addMessageEditTextListerners()
+
+        createBannerSuggestion()
+
+        readMessages()
+
+        seenMessage()
+
+    }
+
+    private fun createBannerSuggestion() {
+        val banner = findViewById<Banner>(R.id.banner)
+
+        banner.setMessage("Fala gallera")
+
+        banner.setRightButtonListener {
+    //            banner.show()
+            banner.dismiss()
+        }
+    }
+
+    private fun backOnClickBackButton() {
         toolbar.setNavigationOnClickListener {
             onBackPressed()
         }
+    }
 
+    private fun sendMessage() {
         ibtnSend.setOnClickListener {
             val message = etMessage.text.toString()
             if (TextUtils.isEmpty(message)) {
@@ -94,8 +120,9 @@ class ChatActivity : AppCompatActivity() {
                 sendMessage(message)
             }
         }
+    }
 
-        // Check edit text change listener
+    private fun addMessageEditTextListerners() {
         etMessage.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
 
@@ -113,21 +140,6 @@ class ChatActivity : AppCompatActivity() {
             override fun afterTextChanged(s: Editable?) {}
 
         })
-
-        val banner = findViewById<Banner>(R.id.banner)
-
-        banner.setMessage("Fala gallera")
-
-        banner.setRightButtonListener {
-//            banner.show()
-            banner.dismiss()
-        }
-
-
-        readMessages()
-
-        seenMessage()
-
     }
 
     override fun onStart() {
