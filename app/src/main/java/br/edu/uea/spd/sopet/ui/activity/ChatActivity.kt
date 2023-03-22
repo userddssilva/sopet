@@ -23,6 +23,7 @@ import com.sergivonavi.materialbanner.Banner
 import com.squareup.picasso.Picasso
 import java.util.*
 
+
 class ChatActivity : AppCompatActivity() {
 
     companion object {
@@ -100,7 +101,7 @@ class ChatActivity : AppCompatActivity() {
         banner.setMessage("Fala gallera")
 
         banner.setRightButtonListener {
-    //            banner.show()
+            //            banner.show()
             banner.dismiss()
         }
     }
