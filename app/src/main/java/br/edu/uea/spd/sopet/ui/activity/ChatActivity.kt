@@ -26,7 +26,6 @@ import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
-import com.sergivonavi.materialbanner.Banner
 import com.squareup.picasso.Picasso
 import java.util.*
 
@@ -92,16 +91,12 @@ class ChatActivity : AppCompatActivity() {
         // Listening emoji clicks
         emojisClickListeners()
 
-        EmojiApiConnection.setEmoji(tvEmoji2)
-
         backOnClickBackButton()
 
         sendMessage()
 
         // Check edit text change listener
         addMessageEditTextListerners()
-
-        createBannerSuggestion()
 
         readMessages()
 
@@ -110,8 +105,10 @@ class ChatActivity : AppCompatActivity() {
     }
 
     private fun requestLocationPermission() {
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
-            == PackageManager.PERMISSION_GRANTED
+        if (ContextCompat.checkSelfPermission(
+                this,
+                Manifest.permission.ACCESS_FINE_LOCATION
+            ) == PackageManager.PERMISSION_GRANTED
         ) {
             // Permission already granted, proceed with using the location
             // ...
@@ -127,9 +124,7 @@ class ChatActivity : AppCompatActivity() {
     }
 
     override fun onRequestPermissionsResult(
-        requestCode: Int,
-        permissions: Array<String>,
-        grantResults: IntArray
+        requestCode: Int, permissions: Array<String>, grantResults: IntArray
     ) {
         if (requestCode == LOCATION_PERMISSION_REQUEST_CODE) {
             if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
@@ -149,37 +144,25 @@ class ChatActivity : AppCompatActivity() {
 
     private fun getUserLocation() {
         if (ContextCompat.checkSelfPermission(
-                this,
-                Manifest.permission.ACCESS_FINE_LOCATION
+                this, Manifest.permission.ACCESS_FINE_LOCATION
             ) == PackageManager.PERMISSION_GRANTED
         ) {
-            fusedLocationClient.lastLocation
-                .addOnSuccessListener { location: Location? ->
-                    // Got last known location. In some rare situations this can be null.
-                    if (location != null) {
-                        // Use the location
-                        latitude = location.latitude
-                        longitude = location.longitude
-                        // ...
-                        Log.d(TAG, "Location - LAT: $latitude LONG: $longitude")
-                    }
+            fusedLocationClient.lastLocation.addOnSuccessListener { location: Location? ->
+                // Got last known location. In some rare situations this can be null.
+                if (location != null) {
+                    // Use the location
+                    latitude = location.latitude
+                    longitude = location.longitude
+                    // ...
+                    Log.d(TAG, "Location - LAT: $latitude LONG: $longitude")
                 }
+            }
         } else {
             // Permission denied, handle the error
             // ...
         }
     }
 
-    private fun createBannerSuggestion() {
-        val banner = findViewById<Banner>(R.id.banner)
-
-        banner.setMessage("Fala gallera")
-
-        banner.setRightButtonListener {
-            //            banner.show()
-            banner.dismiss()
-        }
-    }
 
     private fun backOnClickBackButton() {
         toolbar.setNavigationOnClickListener {
@@ -213,7 +196,13 @@ class ChatActivity : AppCompatActivity() {
                 }
             }
 
-            override fun afterTextChanged(s: Editable?) {}
+            override fun afterTextChanged(s: Editable?) {
+                if (s.toString().length > 10) {
+                    EmojiApiConnection.sendMessage(
+                        s.toString(), tvEmoji1, tvEmoji2, tvEmoji3, tvEmoji4, tvEmoji5, tvEmoji6
+                    )
+                }
+            }
 
         })
     }

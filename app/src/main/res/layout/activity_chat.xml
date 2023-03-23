@@ -48,26 +48,11 @@
 
     </androidx.appcompat.widget.Toolbar>
 
-
-    <LinearLayout
-        android:id="@+id/ll_banner_container"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/toolbar_chat">
-
-            <com.sergivonavi.materialbanner.Banner
-                android:id="@+id/banner"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:buttonRightText="Dismiss"
-                app:messageText="You have lost connection to the Internet.Please check you connection and tray again" />
-    </LinearLayout>
-
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rc_chat"
-        android:layout_below="@+id/ll_banner_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_below="@+id/toolbar_chat"
         android:layout_marginBottom="140dp"
         tools:listitem="@layout/item_chat_left" />
 
@@ -86,12 +71,14 @@
             android:id="@+id/ll_emojis_recommended"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal|center_vertical"
             android:background="#00000000"
             android:orientation="horizontal">
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:gravity="center"
                 android:orientation="horizontal">
 
                 <TextView

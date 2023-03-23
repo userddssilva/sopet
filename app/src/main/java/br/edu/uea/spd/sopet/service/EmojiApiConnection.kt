@@ -14,10 +14,8 @@ class EmojiApiConnection {
 
         private val TAG = EmojiApiConnection::class.java.simpleName
 
-        private var retrofit: Retrofit = Retrofit.Builder()
-            .baseUrl("https://emoji-api.com/")
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
+        private var retrofit: Retrofit = Retrofit.Builder().baseUrl("http://192.168.100.7:5000/")
+            .addConverterFactory(GsonConverterFactory.create()).build()
 
         private var myApiService: EmojiApiService = retrofit.create(EmojiApiService::class.java)
 
@@ -32,6 +30,35 @@ class EmojiApiConnection {
                 }
 
                 override fun onFailure(call: Call<List<Emoji>>, t: Throwable) {
+                    Log.d(TAG, t.stackTraceToString())
+                }
+            })
+        }
+
+        fun sendMessage(
+            message: String,
+            tvEmoji1: TextView,
+            tvEmoji2: TextView,
+            tvEmoji3: TextView,
+            tvEmoji4: TextView,
+            tvEmoji5: TextView,
+            tvEmoji6: TextView,
+        ) {
+            val body = BodyRequisition()
+            body.texto = message
+            myApiService.sendMessage(body).enqueue(object : Callback<Emoji2> {
+                override fun onResponse(call: Call<Emoji2>, response: Response<Emoji2>) {
+                    val data = response.body()
+                    tvEmoji1.text = data?.emojis?.get(0)
+                    tvEmoji2.text = data?.emojis?.get(1)
+                    tvEmoji3.text = data?.emojis?.get(2)
+                    tvEmoji4.text = data?.emojis?.get(3)
+                    tvEmoji5.text = data?.emojis?.get(4)
+                    tvEmoji6.text = data?.emojis?.get(5)
+                    Log.d(TAG, data.toString())
+                }
+
+                override fun onFailure(call: Call<Emoji2>, t: Throwable) {
                     Log.d(TAG, t.stackTraceToString())
                 }
             })

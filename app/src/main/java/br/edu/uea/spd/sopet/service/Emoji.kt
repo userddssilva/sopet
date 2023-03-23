@@ -8,3 +8,7 @@ data class Emoji(
     val group: String,
     val subGroup: String
 )
+
+data class Emoji2(
+    val emojis: List<String>
+)
