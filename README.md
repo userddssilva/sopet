@@ -3,7 +3,7 @@ Projeto para a disciplina de Sistemas paralelos e distribuídos. Este projeto é
 
 https://user-images.githubusercontent.com/51340097/213897976-a2a35c69-e452-48f6-befa-f0840f777de1.mp4
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/wK9GhAmurho?si=lbiI112REyGjphpz" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+[![YouTube demo](https://img.youtube.com/iv/wK9GhAmurho/0.jpg)](https://www.youtube.com/watch?v=wK9GhAmurho)
 
 ![GitHub](https://img.shields.io/github/license/userddssilva/sopet)
 
